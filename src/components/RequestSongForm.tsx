@@ -82,7 +82,7 @@ const RequestSongForm = ({
       <Typography
         sx={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '35px' }}
       >
-        RANDOMIZER
+        randON
       </Typography>
       <Stack
         justifyContent={'center'}
@@ -195,7 +195,22 @@ const RequestSongForm = ({
                 <Checkbox
                   value={songSettings.restrict_genre}
                   checked={songSettings.restrict_genre}
-                  sx={{ color: `${Colors.BLACK_SPOTIFY}` }}
+                  sx={{
+                    color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
+                    '&.Mui-checked': {
+                      color: `${Colors.GREEN_SPOTIFY}`, // Checked color
+                    },
+                    '&.MuiCheckbox-indeterminate': {
+                      color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
+                    },
+                    '&:hover': {
+                      backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
+                    },
+                    '&.Mui-disabled': {
+                      color: '#BDBDBD', // Disabled color
+                    },
+                    mb: 1,
+                  }}
                   onChange={() => {
                     setSongSettings({
                       ...songSettings,
@@ -208,22 +223,38 @@ const RequestSongForm = ({
               sx={{
                 '& .MuiFormControlLabel-label': {
                   fontSize: '13px',
+                  mb: 1,
                 },
               }}
               label="Force the same genre (not similar :D)"
             />
           </Grid2>
-          <Accordion sx={{ width: '100%' }}>
+          <Accordion
+            sx={{
+              width: '100%',
+              borderRadius: '25px', // Border-radius for closed state
+              '&:last-of-type': {
+                borderBottomLeftRadius: '25px', // Override default MUI styles
+                borderBottomRightRadius: '25px',
+              },
+              '&.Mui-expanded': {
+                borderRadius: '25px', // Border-radius when expanded
+                '&:last-of-type': {
+                  borderBottomLeftRadius: '25px', // Ensure it applies when expanded
+                  borderBottomRightRadius: '25px',
+                },
+              },
+              '&::before': {
+                backgroundColor: `rgba(30, 215, 96, 0)`,
+              },
+            }}
+          >
             <AccordionSummary
               expandIcon={<ArrowDropDownIcon />}
               aria-controls="panel1-content"
               id="panel1-header"
               sx={{
                 height: '30px',
-                borderRadius: '25px',
-                '&.Mui-expanded': {
-                  borderRadius: '25px', // Rounded at the top when expanded
-                },
               }}
             >
               <Typography sx={{ fontSize: '15px' }}>More Settings</Typography>
@@ -243,6 +274,21 @@ const RequestSongForm = ({
                             exclude_saved_albums:
                               !songSettings.exclude_saved_albums,
                           });
+                        }}
+                        sx={{
+                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
+                          '&.Mui-checked': {
+                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
+                          },
+                          '&.MuiCheckbox-indeterminate': {
+                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
+                          },
+                          '&:hover': {
+                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
+                          },
+                          '&.Mui-disabled': {
+                            color: '#BDBDBD', // Disabled color
+                          },
                         }}
                       />
                     }
@@ -268,6 +314,21 @@ const RequestSongForm = ({
                               !songSettings.exclude_saved_playlist,
                           });
                         }}
+                        sx={{
+                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
+                          '&.Mui-checked': {
+                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
+                          },
+                          '&.MuiCheckbox-indeterminate': {
+                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
+                          },
+                          '&:hover': {
+                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
+                          },
+                          '&.Mui-disabled': {
+                            color: '#BDBDBD', // Disabled color
+                          },
+                        }}
                       />
                     }
                     sx={{
@@ -292,6 +353,21 @@ const RequestSongForm = ({
                               !songSettings.exclude_saved_artist,
                           });
                         }}
+                        sx={{
+                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
+                          '&.Mui-checked': {
+                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
+                          },
+                          '&.MuiCheckbox-indeterminate': {
+                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
+                          },
+                          '&:hover': {
+                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
+                          },
+                          '&.Mui-disabled': {
+                            color: '#BDBDBD', // Disabled color
+                          },
+                        }}
                       />
                     }
                     sx={{
@@ -315,6 +391,21 @@ const RequestSongForm = ({
                             exclude_saved_tracks:
                               !songSettings.exclude_saved_tracks,
                           });
+                        }}
+                        sx={{
+                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
+                          '&.Mui-checked': {
+                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
+                          },
+                          '&.MuiCheckbox-indeterminate': {
+                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
+                          },
+                          '&:hover': {
+                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
+                          },
+                          '&.Mui-disabled': {
+                            color: '#BDBDBD', // Disabled color
+                          },
                         }}
                       />
                     }
