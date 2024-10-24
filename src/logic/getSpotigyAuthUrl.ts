@@ -1,6 +1,6 @@
-import { CLIENT_ID } from "../constants/spotify";
+import { CLIENT_ID } from '../../config.ts';
 
-const REDIRECT_URI = 'http://localhost:5173/callback';// Same as the one configured in Spotify Dashboard
+const REDIRECT_URI = 'http://localhost:5173/callback'; // Same as the one configured in Spotify Dashboard
 const SCOPES = ['user-read-private', 'user-library-read']; // Add other scopes if needed
 
 // Generate Spotify Authorization URL
