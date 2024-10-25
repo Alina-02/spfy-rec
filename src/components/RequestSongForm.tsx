@@ -8,7 +8,6 @@ import {
   FormControlLabel,
   FormGroup,
   Grid2,
-  MenuItem,
   OutlinedInput,
   Stack,
   TextField,
@@ -19,20 +18,6 @@ import getRandomSongByGenre from '../logic/getRandomSongByGenre';
 import { SpotifyGenres, GetSongSettings } from '../constants/spotify';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Colors } from '../constants/colors';
-
-const CustomPopper = (props: any) => (
-  <Popper
-    {...props}
-    sx={{
-      '& .MuiPaper-root': {
-        borderRadius: '25px', // Custom border-radius for the dropdown
-        '&::-webkit-scrollbar': {
-          display: 'none', // Hide scrollbar for Webkit browsers
-        },
-      },
-    }}
-  />
-);
 
 interface Props {
   selectedGenre: SpotifyGenres[];
@@ -141,12 +126,11 @@ const RequestSongForm = ({
         <Autocomplete
           options={genres}
           value={selectedGenre[0]}
-          onChange={(event, newValue) => {
+          onChange={(_event, newValue) => {
             setSelectedGenre([newValue as SpotifyGenres]);
           }}
           fullWidth
           size="small"
-          PopperComponent={CustomPopper} // Use the custom Popper for dropdown styling
           renderInput={(params) => (
             <TextField
               {...params}

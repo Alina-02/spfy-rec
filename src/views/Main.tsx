@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SpotifyGenres } from '../constants/spotify';
 import getGenres from '../logic/getGenres';
 import { Divider, Stack } from '@mui/material';
@@ -7,7 +7,7 @@ import RequestSongForm from '../components/RequestSongForm';
 import DisplayMusicDemo from '../components/DisplayMusicDemo';
 
 const Main = () => {
-  const [genres, setGenres] = useState<SpotifyGenres[] | null>();
+  const [genres, setGenres] = useState<SpotifyGenres[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<SpotifyGenres[]>([
     SpotifyGenres.Electronic,
   ]);

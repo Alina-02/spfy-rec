@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { TrackData } from '../constants/spotify';
-import { Box, Button, Icon, IconButton, Stack } from '@mui/material';
+import { Box, Button, IconButton, Stack } from '@mui/material';
 import { Colors } from '../constants/colors';
-import { css, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 interface Props {

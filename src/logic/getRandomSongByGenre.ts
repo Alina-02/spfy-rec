@@ -6,19 +6,6 @@ import {
 } from '../constants/spotify';
 
 // Function to get playlists by genre
-async function getPlaylistsByGenre(genre: SpotifyGenres[]) {
-  const token = localStorage.getItem('spotify_access_token');
-
-  try {
-    const url = `https://api.spotify.com/v1/search?type=playlist&q=genre:${genre}`;
-    const response: AxiosResponse = await axios.get(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data.playlists.items;
-  } catch (error) {
-    console.log('Playlist by genre error');
-  }
-}
 
 async function getPlaylistsByGenres(genres: SpotifyGenres[]): Promise<any[]> {
   const token = localStorage.getItem('spotify_access_token');
@@ -95,7 +82,10 @@ async function isTrackAndAlbumSaved(
   };
 }
 
-const isSameGenre = async (randomTrack, genres: SpotifyGenres[]) => {
+const isSameGenre = async (
+  randomTrack: { track: { artists: { id: any }[] } },
+  genres: SpotifyGenres[]
+) => {
   const token = localStorage.getItem('spotify_access_token');
   const url = `https://api.spotify.com/v1/artists/${randomTrack.track.artists[0].id}`;
 

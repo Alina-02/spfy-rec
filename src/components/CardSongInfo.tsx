@@ -1,5 +1,4 @@
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import React from 'react';
 import { TrackData } from '../constants/spotify';
 
 interface Props {
