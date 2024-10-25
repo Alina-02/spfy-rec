@@ -1,6 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
-import { CLIENT_ID, CLIENT_SECRET } from '../../config.ts';
+
+const CLIENT_ID = process.env.CLIENT_ID as string;
+const CLIENT_SECRET = process.env.CLIENT_ID as string;
 
 const getSpotifyToken = async (): Promise<string> => {
   const tokenUrl = 'https://accounts.spotify.com/api/token';

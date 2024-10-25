@@ -1,7 +1,9 @@
 // Callback.tsx
 import React, { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { CLIENT_ID, CLIENT_SECRET } from '../../config';
+
+const CLIENT_ID = process.env.CLIENT_ID as string;
+const CLIENT_SECRET = process.env.CLIENT_ID as string;
 
 const REDIRECT_URI = 'http://localhost:5173/callback';
 
