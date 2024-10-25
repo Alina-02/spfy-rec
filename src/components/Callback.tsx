@@ -1,8 +1,7 @@
 // Callback.tsx
 import React, { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { CLIENT_ID, CLIENT_SECRET } from '../constants/spotify';
-
+import { CLIENT_ID, CLIENT_SECRET } from '../../config';
 
 const REDIRECT_URI = 'http://localhost:5173/callback';
 
