@@ -21,10 +21,7 @@ function App() {
       />
       <Router>
         <Routes>
-          <Route
-            path="https://glittery-otter-ddfc65.netlify.app/"
-            element={<LoginButton />}
-          />
+          <Route path="/" element={<LoginButton />} />
           <Route path="/callback" element={<Callback />} />
           <Route path="/main" element={<Main />} />
         </Routes>
