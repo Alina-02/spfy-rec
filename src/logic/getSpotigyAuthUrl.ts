@@ -1,4 +1,4 @@
-const REDIRECT_URI = 'http://localhost:5173/callback'; // Same as the one configured in Spotify Dashboard
+const REDIRECT_URI = `${window.location.protocol}${window.location.hostname}/callback`; // Same as the one configured in Spotify Dashboard
 const SCOPES = ['user-read-private', 'user-library-read']; // Add other scopes if needed
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;
