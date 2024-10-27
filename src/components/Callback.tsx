@@ -5,7 +5,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_ID as string;
 
-const REDIRECT_URI = 'http://localhost:5173/callback';
+const REDIRECT_URI = `${window.location.protocol}${window.location.hostname}/callback`;
 
 const Callback: React.FC = () => {
   const [searchParams] = useSearchParams();
