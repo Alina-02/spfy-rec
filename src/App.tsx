@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import { CssBaseline, GlobalStyles } from '@mui/material';
 import Main from './views/Main';
 
+//deploy pls
 function App() {
   return (
     <>
