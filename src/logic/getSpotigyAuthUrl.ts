@@ -1,9 +1,7 @@
-import process from 'process';
-
 const REDIRECT_URI = 'http://localhost:5173/callback'; // Same as the one configured in Spotify Dashboard
 const SCOPES = ['user-read-private', 'user-library-read']; // Add other scopes if needed
 
-const CLIENT_ID = process.env.CLIENT_ID as string;
+const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;
 
 // Generate Spotify Authorization URL
 export function getSpotifyAuthUrl(): string {
