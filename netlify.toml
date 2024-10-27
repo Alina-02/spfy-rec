@@ -1,16 +1,4 @@
 [[redirects]]
-  force = true
-  from = "/"
-  to = "https://glittery-otter-ddfc65.netlify.app/callback"
-  status = 200
-  headers = {X-From = "Netlify"}
-[[redirects]]
-  force = true
-  from = "/callback"
-  to = "https://glittery-otter-ddfc65.netlify.app/main"
-  status = 200
-  headers = {X-From = "Netlify"}
-[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
