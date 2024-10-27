@@ -6,9 +6,8 @@ import { Colors } from '../constants/colors';
 
 const LoginButton: React.FC = () => {
   const handleLogin = () => {
+    console.log('ddddf');
     const authUrl = getSpotifyAuthUrl();
-    console.log(window.location.href);
-    console.log(authUrl);
     window.location.href = authUrl; // Redirect to Spotify's login page
   };
 
