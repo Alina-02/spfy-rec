@@ -1,4 +1,6 @@
 const REDIRECT_URI = `${window.location.protocol}${window.location.hostname}/callback`; // Same as the one configured in Spotify Dashboard
+console.log(window.location.protocol);
+console.log(window.location.hostname);
 const SCOPES = ['user-read-private', 'user-library-read']; // Add other scopes if needed
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;
