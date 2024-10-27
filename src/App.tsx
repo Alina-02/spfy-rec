@@ -1,6 +1,6 @@
 import LoginButton from './components/LoginButton';
 import Callback from './components/Callback';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { CssBaseline, GlobalStyles } from '@mui/material';
 import Main from './views/Main';
 
