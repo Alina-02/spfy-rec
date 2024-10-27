@@ -19,13 +19,11 @@ function App() {
           },
         }}
       />
-      <Router>
-        <Routes>
-          <Route path="/" element={<LoginButton />} />
-          <Route path="/callback" element={<Callback />} />
-          <Route path="/main" element={<Main />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<LoginButton />} />
+        <Route path="/callback" element={<Callback />} />
+        <Route path="/main" element={<Main />} />
+      </Routes>
     </>
   );
 }
