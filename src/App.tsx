@@ -1,8 +1,9 @@
-import LoginButton from './components/LoginButton';
+import LoginButton from './components/LoginScreen';
 import Callback from './components/Callback';
 import { Routes, Route } from 'react-router-dom';
 import { CssBaseline, GlobalStyles } from '@mui/material';
 import Main from './views/Main';
+import LoginScreen from './components/LoginScreen';
 
 //deploy pls
 function App() {
@@ -21,7 +22,7 @@ function App() {
         }}
       />
       <Routes>
-        <Route path="/" element={<LoginButton />} />
+        <Route path="/" element={<LoginScreen />} />
         <Route path="/callback" element={<Callback />} />
         <Route path="/main" element={<Main />} />
       </Routes>

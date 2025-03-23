@@ -1,10 +1,10 @@
 // LoginButton.tsx
 import React from 'react';
 import { getSpotifyAuthUrl } from '../logic/getSpotigyAuthUrl';
-import { Button, Slide, Stack } from '@mui/material';
+import { Button, Icon, Slide, Stack } from '@mui/material';
 import { Colors } from '../constants/colors';
 
-const LoginButton: React.FC = () => {
+const LoginScreen: React.FC = () => {
   const handleLogin = () => {
     console.log('ddddf');
     const authUrl = getSpotifyAuthUrl();
@@ -12,7 +12,12 @@ const LoginButton: React.FC = () => {
   };
 
   return (
-    <Stack height="100%" justifyContent={'center'} alignItems={'center'}>
+    <Stack
+      height="100%"
+      justifyContent={'center'}
+      alignItems={'center'}
+      direction="row"
+    >
       <Stack
         width="70%"
         height="100%"
@@ -48,8 +53,20 @@ const LoginButton: React.FC = () => {
           </Stack>
         </Slide>
       </Stack>
+
+      <Icon
+        sx={{
+          width: '60px',
+          height: '60px',
+          position: 'absolute',
+          top: 10,
+          right: 10,
+        }}
+      >
+        <img src="/public/spotify_logo/Primary_Logo_Green_CMYK.svg" />
+      </Icon>
     </Stack>
   );
 };
 
-export default LoginButton;
+export default LoginScreen;
