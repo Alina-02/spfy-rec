@@ -1,4 +1,3 @@
-import LoginButton from './components/LoginScreen';
 import Callback from './components/Callback';
 import { Routes, Route } from 'react-router-dom';
 import { CssBaseline, GlobalStyles } from '@mui/material';

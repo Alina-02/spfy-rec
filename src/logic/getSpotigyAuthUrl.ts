@@ -1,17 +1,58 @@
-const REDIRECT_URI = `${window.location.protocol}//${window.location.hostname}:5173/callback`; // Same as the one configured in Spotify Dashboard
-const SCOPES = ['user-read-private', 'user-library-read']; // Add other scopes if needed
-
+const REDIRECT_URI = `http://localhost:5173/callback`;
+export const SCOPES = ['user-read-private', 'user-library-read'];
+const authUrl = new URL('https://accounts.spotify.com/authorize');
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;
 
+const generateRandomString = (length: number) => {
+  const possible =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const values = crypto.getRandomValues(new Uint8Array(length));
+  return values.reduce((acc, x) => acc + possible[x % possible.length], '');
+};
+
+function sha256(plain: string): Promise<ArrayBuffer> {
+  // Returns a Promise that resolves to an ArrayBuffer
+  const encoder = new TextEncoder();
+  const data = encoder.encode(plain);
+  return window.crypto.subtle.digest('SHA-256', data);
+}
+
+const base64encode = (input: any) => {
+  // Convert the ArrayBuffer to a base64url-encoded string
+  const uint8Array = new Uint8Array(input);
+  let binaryString = '';
+  for (let i = 0; i < uint8Array.length; i++) {
+    binaryString += String.fromCharCode(uint8Array[i]);
+  }
+  return btoa(binaryString)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+};
+
+async function pkce_challenge_from_verifier(v: string): Promise<string> {
+  // Generate a PKCE code challenge from a code verifier
+  const hashed = await sha256(v);
+  const base64encoded = base64encode(hashed);
+  return base64encoded;
+}
+
 // Generate Spotify Authorization URL
-export function getSpotifyAuthUrl(): string {
-  const queryParams = new URLSearchParams({
+export const getSpotifyAuthUrl = async () => {
+  const codeVerifier = await generateRandomString(64);
+  const hashed = await sha256(codeVerifier);
+  const codeChallenge = await base64encode(hashed);
+
+  window.localStorage.setItem('code_verifier', codeVerifier);
+
+  const params = new URLSearchParams({
     client_id: CLIENT_ID,
     response_type: 'code',
     redirect_uri: REDIRECT_URI,
     scope: SCOPES.join(' '),
-    state: Math.random().toString(36).substring(2, 15), // Optional, adds security
+    code_challenge_method: 'S256',
+    code_challenge: codeChallenge,
   });
-
-  return `https://accounts.spotify.com/authorize?${queryParams.toString()}`;
-}
+  authUrl.search = new URLSearchParams(params).toString();
+  window.location.href = authUrl.toString();
+};

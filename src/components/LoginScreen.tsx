@@ -5,12 +5,6 @@ import { Button, Icon, Slide, Stack } from '@mui/material';
 import { Colors } from '../constants/colors';
 
 const LoginScreen: React.FC = () => {
-  const handleLogin = () => {
-    console.log('ddddf');
-    const authUrl = getSpotifyAuthUrl();
-    window.location.href = authUrl; // Redirect to Spotify's login page
-  };
-
   return (
     <Stack
       height="100%"
@@ -36,15 +30,16 @@ const LoginScreen: React.FC = () => {
             padding={2}
           >
             <Button
-              onClick={handleLogin}
+              onClick={getSpotifyAuthUrl}
               variant="outlined"
+              //href={SPOTIFY_AUTH_URL}
               sx={{
                 color: `${Colors.GREEN_SPOTIFY}`,
                 borderColor: `${Colors.GREEN_SPOTIFY}`,
                 backgroundColor: `rgba(30, 215, 96, 0.2)`,
                 fontSize: '30px',
                 width: '200px',
-                borderRadius: '25px',
+                borderRadius: '10px',
                 fontFamily: "'IBM Plex Mono', monospace",
               }}
             >
