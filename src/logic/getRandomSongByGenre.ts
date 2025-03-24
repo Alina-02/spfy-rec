@@ -14,7 +14,7 @@ async function getPlaylistsByGenres(genre: SpotifyGenre): Promise<any[]> {
     // Join genres with space or 'OR' to match any genre
     const genreQuery = `q=genre:${genre}`;
     const url = `https://api.spotify.com/v1/search?type=playlist&${genreQuery}`;
-    console.log(url);
+
     const response: AxiosResponse = await axios.get(url, {
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -35,7 +35,6 @@ async function isPlaylistSaved(playlistId: string) {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log(userInfo.data);
   try {
     const url = `https://api.spotify.com/v1/playlists/${playlistId}/followers/contains?ids=${userInfo.data.display_name}`;
     const response: AxiosResponse<boolean[]> = await axios.get(url, {
@@ -96,7 +95,6 @@ const isSameGenre = async (
   });
 
   const songGenres: string[] = response.data.genres;
-  console.log(songGenres);
   return songGenres.length === 0
     ? songGenres.some((g) => g === genre.name)
     : true;
@@ -148,12 +146,14 @@ const getRandomSongByGenre = async (
             !songSetting.restrict_genre
           ) {
             trackData = {
-              track: randomTrack.track.name,
-              artist: randomTrack.track.artists[0].name,
-              album: randomTrack.track.album.name,
+              name: randomTrack.track.name,
+              artists: randomTrack.track.artists,
+              album: {
+                name: randomTrack.track.album.name,
+                images: randomTrack.track.album.images,
+              },
               release_date: randomTrack.track.album.release_date,
               url: randomTrack.track.external_urls.spotify,
-              image: randomTrack.track.album.images[0],
               popularity: randomTrack.track.popularity,
             } as unknown as SpotifyTrack;
             validTrackFound = true; // Mark as found

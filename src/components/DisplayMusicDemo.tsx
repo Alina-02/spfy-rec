@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { TrackData } from '../constants/spotify';
+import { SpotifyTrack } from '../constants/spotify';
 import { Box, Button, IconButton, Stack } from '@mui/material';
 import { Colors } from '../constants/colors';
 import { keyframes } from '@emotion/react';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 interface Props {
-  songInfo: TrackData;
+  songInfo: SpotifyTrack;
   audioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
@@ -23,19 +23,20 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const showPreview = () => {
-    window.open(songInfo.url, '_blank');
+    window.open(songInfo.external_urls.spotify, '_blank');
   };
 
   const togglePlay = () => {
     if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.pause();
+        //audioRef.current.pause();
       } else {
-        audioRef.current.play();
+        //audioRef.current.play();
       }
       setIsPlaying(!isPlaying);
     }
   };
+
   return (
     <Stack height="100%" sx={{ backgroundColor: `${Colors.BLACK_SPOTIFY}` }}>
       <Stack
@@ -44,7 +45,7 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
         alignItems={'center'}
       >
         <Stack height="100%">
-          {songInfo?.image && (
+          {songInfo?.album?.images?.length > 0 && (
             <Box
               minWidth="250px"
               //width="450px"
@@ -66,7 +67,7 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
                   animation: `${spin} 10s linear infinite`,
                   animationPlayState: !isPlaying ? 'paused' : 'running', // Control animation state
                 }}
-                src={songInfo?.image.url}
+                src={songInfo?.album.images[0]?.url}
                 borderRadius={'100%'}
               />
               <Box
@@ -82,29 +83,28 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
                   backgroundColor: `${Colors.BLACK_SPOTIFY}`,
                 }}
               >
-                {songInfo?.preview !== undefined && (
-                  <IconButton
-                    onClick={togglePlay}
-                    component={PlayCircleIcon}
-                    sx={{
-                      position: 'absolute', // Position icon over the image
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)', // Center the icon
-                      fontSize: '80px', // Adjust size as needed
-                      color: 'white',
-                    }}
-                  />
-                )}
+                <IconButton
+                  onClick={togglePlay}
+                  component={PlayCircleIcon}
+                  sx={{
+                    position: 'absolute', // Position icon over the image
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)', // Center the icon
+                    fontSize: '80px', // Adjust size as needed
+                    color: 'white',
+                  }}
+                />
               </Box>
+
               <audio
                 ref={audioRef}
-                src={songInfo?.preview}
+                //src={songInfo?.preview}
                 onEnded={() => setIsPlaying(false)}
               />
             </Box>
           )}
-          {!songInfo?.image && (
+          {!songInfo?.album?.images && (
             <Box
               margin={10}
               minWidth="250px"

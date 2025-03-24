@@ -48,8 +48,8 @@ const RequestSongForm = ({
     getRandomSongByGenre(selectedGenre, songSettings).then((res) => {
       // Prepare the song information
       setSongInfo(res);
-      audioRef.current?.pause();
-      if (audioRef?.current?.currentTime) audioRef.current.currentTime = 0;
+      //audioRef.current?.pause();
+      //if (audioRef?.current?.currentTime) audioRef.current.currentTime = 0;
     });
   };
 

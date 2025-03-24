@@ -1,8 +1,8 @@
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import { TrackData } from '../constants/spotify';
+import { SpotifyTrack } from '../constants/spotify';
 
 interface Props {
-  songInfo: TrackData;
+  songInfo: SpotifyTrack;
 }
 
 const CardSongInfo = ({ songInfo }: Props) => {
@@ -17,7 +17,11 @@ const CardSongInfo = ({ songInfo }: Props) => {
       }}
     >
       <CardContent sx={{ margin: 0, padding: 0 }}>
-        <CardMedia component="img" height="150px" image={songInfo?.image.url} />
+        <CardMedia
+          component="img"
+          height="150px"
+          image={songInfo?.album.images[0]?.url}
+        />
         <Stack m={2}>
           <Typography
             variant="subtitle1"
@@ -29,7 +33,7 @@ const CardSongInfo = ({ songInfo }: Props) => {
             variant="caption"
             sx={{ fontSize: '12px', fontWeight: 'bold' }}
           >
-            {songInfo.artist}
+            {songInfo?.artists[0]?.name}
           </Typography>
 
           <Typography
@@ -39,7 +43,7 @@ const CardSongInfo = ({ songInfo }: Props) => {
             Track title
           </Typography>
           <Typography variant="h6" sx={{ fontSize: '18px' }}>
-            {songInfo.track}
+            {songInfo.name}
           </Typography>
 
           <Typography
@@ -48,7 +52,7 @@ const CardSongInfo = ({ songInfo }: Props) => {
           >
             Album
           </Typography>
-          <Typography variant="subtitle1">{songInfo.album}</Typography>
+          <Typography variant="subtitle1">{songInfo.album.name}</Typography>
         </Stack>
       </CardContent>
     </Card>

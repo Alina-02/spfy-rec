@@ -5,7 +5,6 @@ import CardSongInfo from '../components/CardSongInfo';
 import RequestSongForm from '../components/RequestSongForm';
 import DisplayMusicDemo from '../components/DisplayMusicDemo';
 import { spotifyGenres } from '../constants/genres';
-import PopularityStats from '../components/PopularityStats';
 
 const Main = () => {
   //const [genres, setGenres] = useState<SpotifyGenres[]>([]);
@@ -16,10 +15,9 @@ const Main = () => {
 
   const [songInfo, setSongInfo] = useState<any>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
   /*useEffect(() => {
     getGenres().then((res) => {
-      console.log(res, 'hola');
+      (res, 'hola');
       setGenres(res);
     });
   }, []);*/
@@ -32,7 +30,7 @@ const Main = () => {
 
   return (
     <Stack direction="row" height="100%">
-      <Stack width="350px" m={2} spacing={2}>
+      <Stack width="350px" m={2} spacing={2} overflow={'auto'}>
         <RequestSongForm
           selectedGenre={selectedGenre}
           setSongInfo={setSongInfo}

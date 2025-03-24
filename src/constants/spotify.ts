@@ -10,7 +10,7 @@ export interface SpotifyTrack {
     ean: string;
     upc: string;
   };
-  external_urls: ExternalSpotifyUrls[];
+  external_urls: ExternalSpotifyUrls;
   href: string;
   id: string;
   is_playable: boolean;
