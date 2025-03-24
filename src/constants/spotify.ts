@@ -24,6 +24,11 @@ export interface SpotifyImage {
   url: string;
 }
 
+export interface SpotifyGenre {
+  id: number;
+  name: string;
+}
+
 // Enum with Spotify genres based on available genre seeds
 export enum SpotifyGenres {
   Acoustic = 'acoustic',

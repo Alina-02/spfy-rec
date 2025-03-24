@@ -1,18 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
-import {
-  GetSongSettings,
-  SpotifyGenres,
-  TrackData,
-} from '../constants/spotify';
+import { GetSongSettings, SpotifyGenre, TrackData } from '../constants/spotify';
 
 // Function to get playlists by genre
 
-async function getPlaylistsByGenres(genres: SpotifyGenres[]): Promise<any[]> {
+async function getPlaylistsByGenres(genre: SpotifyGenre): Promise<any[]> {
   const token = localStorage.getItem('spotify_access_token');
 
   try {
     // Join genres with space or 'OR' to match any genre
-    const genreQuery = genres.map((g) => `q=genre:${g}`).join('&');
+    const genreQuery = `q=genre:${genre}`;
     const url = `https://api.spotify.com/v1/search?type=playlist&${genreQuery}`;
     console.log(url);
     const response: AxiosResponse = await axios.get(url, {
@@ -84,7 +80,7 @@ async function isTrackAndAlbumSaved(
 
 const isSameGenre = async (
   randomTrack: { track: { artists: { id: any }[] } },
-  genres: SpotifyGenres[]
+  genre: SpotifyGenre
 ) => {
   const token = localStorage.getItem('spotify_access_token');
   const url = `https://api.spotify.com/v1/artists/${randomTrack.track.artists[0].id}`;
@@ -98,17 +94,17 @@ const isSameGenre = async (
   const songGenres: string[] = response.data.genres;
   console.log(songGenres);
   return songGenres.length === 0
-    ? genres.some((genre: string) => songGenres?.includes(genre))
+    ? songGenres.some((g) => g === genre.name)
     : true;
 };
 
 const getRandomSongByGenre = async (
-  genres: SpotifyGenres[],
+  genre: SpotifyGenre,
   songSetting: GetSongSettings
 ) => {
   try {
     let validTrackFound = false;
-    const playlists = await getPlaylistsByGenres(genres);
+    const playlists = await getPlaylistsByGenres(genre);
     while (!validTrackFound) {
       // get random playlist
       const randomPlaylist =
@@ -141,7 +137,7 @@ const getRandomSongByGenre = async (
           (!songSetting.exclude_saved_tracks &&
             !songSetting.exclude_saved_albums)
         ) {
-          const sameGenre = await isSameGenre(randomTrack, genres);
+          const sameGenre = await isSameGenre(randomTrack, genre);
 
           if (
             (sameGenre && songSetting.restrict_genre) ||

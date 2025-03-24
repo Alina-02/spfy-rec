@@ -24,21 +24,22 @@ const LoginScreen: React.FC = () => {
             width="600px"
             height="600px"
             borderRadius={'100%'}
-            sx={{ backgroundColor: 'white' }}
+            sx={{ backgroundColor: `${Colors.GREEN_SPOTIFY}` }}
             justifyContent={'center'}
             alignItems={'center'}
             padding={2}
           >
             <Button
               onClick={getSpotifyAuthUrl}
-              variant="outlined"
-              //href={SPOTIFY_AUTH_URL}
+              //variant="contained"
+              color="secondary"
               sx={{
-                color: `${Colors.GREEN_SPOTIFY}`,
-                borderColor: `${Colors.GREEN_SPOTIFY}`,
-                backgroundColor: `rgba(30, 215, 96, 0.2)`,
+                //color: `${Colors.BLACK_SPOTIFY}`,
+                // borderColor: `${Colors.BLACK_SPOTIFY}`,
+                //backgroundColor: `rgba(30, 215, 96, 0.3)`,
                 fontSize: '30px',
                 width: '200px',
+                height: '60px',
                 borderRadius: '10px',
                 fontFamily: "'IBM Plex Mono', monospace",
               }}

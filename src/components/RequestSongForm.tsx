@@ -1,29 +1,28 @@
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Autocomplete,
   Button,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Grid2,
-  OutlinedInput,
+  IconButton,
   Stack,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import getRandomSongByGenre from '../logic/getRandomSongByGenre';
-import { SpotifyGenres, GetSongSettings } from '../constants/spotify';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import {
+  SpotifyGenres,
+  GetSongSettings,
+  SpotifyGenre,
+} from '../constants/spotify';
 import { Colors } from '../constants/colors';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 interface Props {
-  selectedGenre: SpotifyGenres[];
+  selectedGenre: SpotifyGenre;
   setSongInfo: React.Dispatch<any>;
-  genres: SpotifyGenres[];
-  setSelectedGenre: React.Dispatch<React.SetStateAction<SpotifyGenres[]>>;
+  genres: SpotifyGenre[];
+  setSelectedGenre: React.Dispatch<React.SetStateAction<SpotifyGenre>>;
   setRandomGenre: React.Dispatch<any>;
   audioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
@@ -65,7 +64,7 @@ const RequestSongForm = ({
   return (
     <Stack spacing={2} px={2}>
       <Typography
-        sx={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '35px' }}
+        sx={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '55px' }}
       >
         randON
       </Typography>
@@ -74,145 +73,48 @@ const RequestSongForm = ({
         alignItems={'center'}
         direction={'row'}
         m={2}
-        spacing={2}
+        spacing={1}
       >
-        {/*<TextField
-          select
-          value={selectedGenre}
-          onChange={(e) => {
-            setSelectedGenre([e.target.value as SpotifyGenres]);
-          }}
-          fullWidth
-          size="small"
-          slots={{
-            input: (props) => (
-              <OutlinedInput
-                {...props}
-                sx={{
-                  borderRadius: '25px', // Custom border-radius for the select input
-                }}
-              />
-            ),
-          }}
-          slotProps={{
-            select: {
-              MenuProps: {
-                PaperProps: {
-                  sx: {
-                    '&::-webkit-scrollbar': {
-                      display: 'none', // Hide scrollbar for Webkit browsers
-                    },
-                    borderRadius: '25px', // Custom border-radius for the dropdown menu
-                  },
-                },
-              },
-            },
-          }}
-          sx={{
-            color: `${Colors.BLACK_SPOTIFY}`,
-            borderColor: `${Colors.BLACK_SPOTIFY}`,
-            '& .MuiFilledInput-root': {
-              borderRadius: '25px', // Custom border-radius for filled variant
-            },
-          }}
-        >
-          {genres?.map((genre) => (
-            <MenuItem key={genre} value={genre}>
-              {genre}
-            </MenuItem>
-          ))}
-        </TextField>*/}
-
         <Autocomplete
           options={genres}
-          value={selectedGenre[0]}
+          value={selectedGenre}
           onChange={(_event, newValue) => {
-            setSelectedGenre([newValue as SpotifyGenres]);
+            setSelectedGenre(newValue as SpotifyGenre);
           }}
+          getOptionLabel={(genre: SpotifyGenre) => genre.name}
           fullWidth
           size="small"
           renderInput={(params) => (
             <TextField
               {...params}
+              label="Genres"
               size="small"
               sx={{
                 color: `${Colors.BLACK_SPOTIFY}`,
                 borderColor: `${Colors.BLACK_SPOTIFY}`,
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: '25px', // Custom border-radius for the input field
+                  borderRadius: '10px', // Custom border-radius for the input field
                 },
-              }}
-              slots={{
-                input: (props) => (
-                  <OutlinedInput
-                    {...props}
-                    sx={{
-                      borderRadius: '25px', // Custom border-radius for the select input
-                    }}
-                  />
-                ),
               }}
             />
           )}
         />
-        <Button
-          variant="outlined"
-          size="small"
-          sx={{
-            padding: 1,
-            width: '120px',
-            height: '40px',
-            borderRadius: '25px',
-            color: `${Colors.BLACK_SPOTIFY}`,
-            borderColor: `${Colors.BLACK_SPOTIFY}`,
-          }}
-          onClick={setRandomGenre}
-        >
-          Random
-        </Button>
+
+        <Stack direction="row">
+          <Tooltip title={'Randomize'}>
+            <IconButton color="secondary" onClick={setRandomGenre}>
+              <ShuffleIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title={'More settings'}>
+            <IconButton color="secondary" onClick={setRandomGenre}>
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Stack>
-      <Stack>
+      {/*<Stack>
         <FormGroup>
-          <Grid2 size={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  value={songSettings.restrict_genre}
-                  checked={songSettings.restrict_genre}
-                  sx={{
-                    color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
-                    '&.Mui-checked': {
-                      color: `${Colors.GREEN_SPOTIFY}`, // Checked color
-                    },
-                    '&.MuiCheckbox-indeterminate': {
-                      color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
-                    },
-                    '&:hover': {
-                      backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
-                    },
-                    '&.Mui-disabled': {
-                      color: '#BDBDBD', // Disabled color
-                    },
-                    mb: 1,
-                  }}
-                  onChange={() => {
-                    setSongSettings({
-                      ...songSettings,
-                      restrict_genre: !songSettings.restrict_genre,
-                    });
-                  }}
-                  size="small"
-                />
-              }
-              sx={{
-                '& .MuiFormControlLabel-label': {
-                  fontSize: '13px',
-                  mb: 1,
-                },
-              }}
-              label="Force the same genre (not similar :D)"
-            />
-          </Grid2>
           <Accordion
             sx={{
               width: '100%',
@@ -222,10 +124,10 @@ const RequestSongForm = ({
                 borderBottomRightRadius: '25px',
               },
               '&.Mui-expanded': {
-                borderRadius: '25px', // Border-radius when expanded
+                borderRadius: '10px', // Border-radius when expanded
                 '&:last-of-type': {
-                  borderBottomLeftRadius: '25px', // Ensure it applies when expanded
-                  borderBottomRightRadius: '25px',
+                  borderBottomLeftRadius: '10px', // Ensure it applies when expanded
+                  borderBottomRightRadius: '10px',
                 },
               },
               '&::before': {
@@ -233,16 +135,6 @@ const RequestSongForm = ({
               },
             }}
           >
-            <AccordionSummary
-              expandIcon={<ArrowDropDownIcon />}
-              aria-controls="panel1-content"
-              id="panel1-header"
-              sx={{
-                height: '30px',
-              }}
-            >
-              <Typography sx={{ fontSize: '15px' }}>More Settings</Typography>
-            </AccordionSummary>
             <AccordionDetails>
               <Grid2 container>
                 <Grid2 size={6}>
@@ -405,16 +297,15 @@ const RequestSongForm = ({
             </AccordionDetails>
           </Accordion>
         </FormGroup>
-      </Stack>
+      </Stack>*/}
       <Stack mx={2}>
         <Button
           variant="contained"
-          size="small"
+          size="medium"
           sx={{
             padding: 1,
-            height: '40px',
-            borderRadius: '25px',
-            backgroundColor: `${Colors.BLACK_SPOTIFY}`,
+            borderRadius: '10px',
+            fontSize: '15px',
           }}
           onClick={findSong}
           fullWidth

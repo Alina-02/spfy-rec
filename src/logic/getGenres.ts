@@ -1,13 +1,13 @@
 import axios, { AxiosResponse } from 'axios'; // Import Axios and its types
 import { SpotifyGenres } from '../constants/spotify';
-import getSpotifyToken from './getToken';
 
 interface SpotifyGenreResponse {
   genres: SpotifyGenres[];
 }
 
 const getGenres = async () => {
-  const token = await getSpotifyToken();
+  //const token = await getSpotifyToken();
+  const token = localStorage.getItem('spotify_access_token');
   try {
     const response: AxiosResponse<SpotifyGenreResponse> = await axios({
       method: 'get',
