@@ -9,14 +9,11 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import getRandomSongByGenre from '../logic/getRandomSongByGenre';
-import {
-  SpotifyGenres,
-  GetSongSettings,
-  SpotifyGenre,
-} from '../constants/spotify';
+import { GetSongSettings, SpotifyGenre } from '../constants/spotify';
 import { Colors } from '../constants/colors';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import SettingsIcon from '@mui/icons-material/Settings';
+import PopularityStats from './PopularityStats';
 
 interface Props {
   selectedGenre: SpotifyGenre;
@@ -68,6 +65,7 @@ const RequestSongForm = ({
       >
         randON
       </Typography>
+      <PopularityStats />
       <Stack
         justifyContent={'center'}
         alignItems={'center'}

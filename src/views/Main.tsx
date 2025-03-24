@@ -5,6 +5,7 @@ import CardSongInfo from '../components/CardSongInfo';
 import RequestSongForm from '../components/RequestSongForm';
 import DisplayMusicDemo from '../components/DisplayMusicDemo';
 import { spotifyGenres } from '../constants/genres';
+import PopularityStats from '../components/PopularityStats';
 
 const Main = () => {
   //const [genres, setGenres] = useState<SpotifyGenres[]>([]);

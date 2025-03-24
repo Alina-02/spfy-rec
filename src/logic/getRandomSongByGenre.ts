@@ -1,5 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
-import { GetSongSettings, SpotifyGenre, TrackData } from '../constants/spotify';
+import {
+  GetSongSettings,
+  SpotifyGenre,
+  SpotifyTrack,
+} from '../constants/spotify';
 
 // Function to get playlists by genre
 
@@ -151,10 +155,7 @@ const getRandomSongByGenre = async (
               url: randomTrack.track.external_urls.spotify,
               image: randomTrack.track.album.images[0],
               popularity: randomTrack.track.popularity,
-              preview: randomTrack.track.preview_url,
-              trackSaved,
-              albumSaved,
-            } as TrackData;
+            } as unknown as SpotifyTrack;
             validTrackFound = true; // Mark as found
           }
         }

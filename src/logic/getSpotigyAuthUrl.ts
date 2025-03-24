@@ -1,5 +1,9 @@
 const REDIRECT_URI = `http://localhost:5173/callback`;
-export const SCOPES = ['user-read-private', 'user-library-read'];
+export const SCOPES = [
+  'user-read-private',
+  'user-library-read',
+  'user-top-read',
+];
 const authUrl = new URL('https://accounts.spotify.com/authorize');
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;
 
