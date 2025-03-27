@@ -8,6 +8,7 @@ import { getNewReleases } from './getNewReleases';
 import { formatStringId } from '../utils/formatStringIds';
 import { checkFollowedArtist } from './checkFollowedArtist';
 import { searchSpotify } from './searchForItem';
+import { checkSavedAlbum } from './checkSavedAlbum';
 
 // Function to get playlists by genre
 
@@ -277,8 +278,12 @@ export const obtainANewSpotifyTrackRecomendation = async (genre: string) => {
     const track = genreResponseTracks.items[randomTrack];
 
     const artisId = track.artists[0].id;
-    const isFollowed = await checkFollowedArtist({ artistIds: artisId });
-    if (!isFollowed[0]) return genreResponseTracks.items[randomTrack];
+    const isFollowedArtist = await checkFollowedArtist({ artistIds: artisId });
+    const albumId = track.album.id;
+    const isSavedAlbum = await checkSavedAlbum({ albumsIds: albumId });
+
+    if (!isFollowedArtist[0] && !isSavedAlbum[0])
+      return genreResponseTracks.items[randomTrack];
 
     cont++;
   }
