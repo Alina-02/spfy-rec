@@ -42,7 +42,7 @@ export interface SpotifyAlbum {
   };
   type: string;
   uri: string;
-  artist: SpotifySimplifiedArtist[];
+  artists: SpotifySimplifiedArtist[];
 }
 
 export interface SpotifySimplifiedArtist {

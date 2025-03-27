@@ -3,6 +3,7 @@ export const SCOPES = [
   'user-read-private',
   'user-library-read',
   'user-top-read',
+  'user-follow-read',
 ];
 const authUrl = new URL('https://accounts.spotify.com/authorize');
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;

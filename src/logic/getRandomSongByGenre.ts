@@ -4,6 +4,10 @@ import {
   SpotifyGenre,
   SpotifyTrack,
 } from '../constants/spotify';
+import { getNewReleases } from './getNewReleases';
+import { formatStringId } from '../utils/formatStringIds';
+import { checkFollowedArtist } from './checkFollowedArtist';
+import { searchSpotify } from './searchForItem';
 
 // Function to get playlists by genre
 
@@ -100,24 +104,117 @@ const isSameGenre = async (
     : true;
 };
 
+/*const getGenreNewRelease = async (genre: SpotifyGenre) => {
+  const newReleases = await getNewReleases({ limit: 50 });
+  const token = localStorage.getItem('spotify_access_token');
+  console.log(newReleases);
+  var genreReleases: any[] = [];
+  newReleases?.albums?.items?.map(async (album) => {
+    console.log(album);
+    const response = await axios.get(album?.artists[0]?.href, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const artistGenres: string[] = response.data.genres;
+    console.log(artistGenres, genre.name.toLowerCase());
+    console.log(artistGenres.some((g) => g === genre.name.toLowerCase()));
+    if (artistGenres.some((g) => g === genre.name.toLowerCase())) {
+      genreReleases = [...genreReleases, response.data];
+      console.log(genreReleases);
+      if (genreReleases.length >= 10) {
+        return genreReleases;
+      }
+    }
+  });
+};*/
+
+const getGenreNewRelease = async (genre: SpotifyGenre) => {
+  let genreReleases: any[] = [];
+  let nextUrl: string | null =
+    'https://api.spotify.com/v1/browse/new-releases?limit=50';
+  const token = localStorage.getItem('spotify_access_token');
+  const startTime = Date.now();
+  const maxDuration = 30 * 1000; // 30 segundos
+
+  while (
+    nextUrl &&
+    genreReleases.length < 10 &&
+    Date.now() - startTime < maxDuration
+  ) {
+    try {
+      // Obtener nuevas novedades desde la URL actual
+      const { data: newReleases } = await axios.get(nextUrl, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      // Actualizar la URL de la siguiente página de resultados
+      nextUrl = newReleases.albums.next;
+
+      // Procesar cada álbum de la página actual
+      for (const album of newReleases.albums.items) {
+        if (genreReleases.length >= 10) break;
+
+        try {
+          const response = await axios.get(album.artists[0].href, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          const artist = response.data;
+          const artistGenres: string[] = artist.genres;
+          if (artistGenres.some((g) => g === genre.name.toLowerCase())) {
+            genreReleases.push(artist); // Guardamos el álbum en lugar del artista
+          }
+        } catch (error) {
+          console.error(
+            `Error obteniendo artista: ${album.artists[0].name}`,
+            error
+          );
+        }
+      }
+    } catch (error) {
+      console.error('Error obteniendo novedades:', error);
+      break; // Si hay un error, detenemos la ejecución
+    }
+  }
+
+  return genreReleases;
+};
+
 const getRandomSongByGenre = async (
   genre: SpotifyGenre,
   songSetting: GetSongSettings
 ) => {
   try {
     let validTrackFound = false;
-    const playlists = await getPlaylistsByGenres(genre);
+    //const playlists = await getPlaylistsByGenres(genre);
+    //console.log(playlists);
+
+    const genreNewReleasesArtists = await getGenreNewRelease(genre);
+    console.log(genreNewReleasesArtists);
+
+    const formatedIds: string = formatStringId(genreNewReleasesArtists);
+    const areSavedArtist: boolean[] = await checkFollowedArtist({
+      artistIds: formatedIds,
+    });
+    console.log(areSavedArtist, 'saved');
+
     while (!validTrackFound) {
       // get random playlist
       const randomPlaylist =
-        playlists[Math.floor(Math.random() * playlists.length)];
+        genreNewReleasesArtists[
+          Math.floor(Math.random() * genreNewReleasesArtists.length)
+        ];
       const playlistId = randomPlaylist.id;
 
       // check if the playlist is saved
-      const playlistSaved = await isPlaylistSaved(playlistId);
+      //const playlistSaved = await isPlaylistSaved(playlistId);
+
+      //check if the release artist is followed
 
       if (
-        (!playlistSaved && songSetting.exclude_saved_playlist) ||
+        //(!playlistSaved &&
+        //songSetting.exclude_saved_playlist ||
         !songSetting.exclude_saved_playlist
       ) {
         let trackData: any = null;
@@ -166,6 +263,12 @@ const getRandomSongByGenre = async (
   } catch (error) {
     console.error('Error fetching playlist data:', error);
   }
+};
+
+export const obtainANewSpotifyRecomendation = async (genre: string) => {
+  const genreSongs = await searchSpotify(`genre:${genre} `, 'track');
+  console.log(genreSongs, genre, 'hola');
+  return genreSongs;
 };
 
 export default getRandomSongByGenre;

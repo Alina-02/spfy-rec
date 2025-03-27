@@ -8,7 +8,9 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
-import getRandomSongByGenre from '../logic/getRandomSongByGenre';
+import getRandomSongByGenre, {
+  obtainANewSpotifyRecomendation,
+} from '../logic/getRandomSongByGenre';
 import { GetSongSettings, SpotifyGenre } from '../constants/spotify';
 import { Colors } from '../constants/colors';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
@@ -45,18 +47,8 @@ const RequestSongForm = ({
   );
 
   const findSong = () => {
-    getRandomSongByGenre(selectedGenre, songSettings).then((res) => {
-      // Prepare the song information
-      setSongInfo(res);
-      //audioRef.current?.pause();
-      //if (audioRef?.current?.currentTime) audioRef.current.currentTime = 0;
-    });
+    obtainANewSpotifyRecomendation(selectedGenre.name);
   };
-
-  /*const changeSelectedGenre = (e, newValue) => {
-    setSelectedGenre(newValue);
-    console.log(selectedGenre);
-  };*/
 
   return (
     <Stack spacing={2} px={2}>
@@ -111,191 +103,6 @@ const RequestSongForm = ({
           </Tooltip>
         </Stack>
       </Stack>
-      {/*<Stack>
-        <FormGroup>
-          <Accordion
-            sx={{
-              width: '100%',
-              borderRadius: '25px', // Border-radius for closed state
-              '&:last-of-type': {
-                borderBottomLeftRadius: '25px', // Override default MUI styles
-                borderBottomRightRadius: '25px',
-              },
-              '&.Mui-expanded': {
-                borderRadius: '10px', // Border-radius when expanded
-                '&:last-of-type': {
-                  borderBottomLeftRadius: '10px', // Ensure it applies when expanded
-                  borderBottomRightRadius: '10px',
-                },
-              },
-              '&::before': {
-                backgroundColor: `rgba(30, 215, 96, 0)`,
-              },
-            }}
-          >
-            <AccordionDetails>
-              <Grid2 container>
-                <Grid2 size={6}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={songSettings.exclude_saved_albums}
-                        checked={songSettings.exclude_saved_albums}
-                        size="small"
-                        onChange={() => {
-                          setSongSettings({
-                            ...songSettings,
-                            exclude_saved_albums:
-                              !songSettings.exclude_saved_albums,
-                          });
-                        }}
-                        sx={{
-                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
-                          '&.Mui-checked': {
-                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
-                          },
-                          '&.MuiCheckbox-indeterminate': {
-                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
-                          },
-                          '&:hover': {
-                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
-                          },
-                          '&.Mui-disabled': {
-                            color: '#BDBDBD', // Disabled color
-                          },
-                        }}
-                      />
-                    }
-                    sx={{
-                      '& .MuiFormControlLabel-label': {
-                        fontSize: '13px',
-                      },
-                    }}
-                    label="Exclude saved albums"
-                  />
-                </Grid2>
-                <Grid2 size={6}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={songSettings.exclude_saved_playlist}
-                        checked={songSettings.exclude_saved_playlist}
-                        size="small"
-                        onChange={() => {
-                          setSongSettings({
-                            ...songSettings,
-                            exclude_saved_playlist:
-                              !songSettings.exclude_saved_playlist,
-                          });
-                        }}
-                        sx={{
-                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
-                          '&.Mui-checked': {
-                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
-                          },
-                          '&.MuiCheckbox-indeterminate': {
-                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
-                          },
-                          '&:hover': {
-                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
-                          },
-                          '&.Mui-disabled': {
-                            color: '#BDBDBD', // Disabled color
-                          },
-                        }}
-                      />
-                    }
-                    sx={{
-                      '& .MuiFormControlLabel-label': {
-                        fontSize: '13px',
-                      },
-                    }}
-                    label="Exclude saved playlist"
-                  />
-                </Grid2>
-                <Grid2 size={6}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={songSettings.exclude_saved_artist}
-                        checked={songSettings.exclude_saved_artist}
-                        size="small"
-                        onChange={() => {
-                          setSongSettings({
-                            ...songSettings,
-                            exclude_saved_artist:
-                              !songSettings.exclude_saved_artist,
-                          });
-                        }}
-                        sx={{
-                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
-                          '&.Mui-checked': {
-                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
-                          },
-                          '&.MuiCheckbox-indeterminate': {
-                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
-                          },
-                          '&:hover': {
-                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
-                          },
-                          '&.Mui-disabled': {
-                            color: '#BDBDBD', // Disabled color
-                          },
-                        }}
-                      />
-                    }
-                    sx={{
-                      '& .MuiFormControlLabel-label': {
-                        fontSize: '13px',
-                      },
-                    }}
-                    label="Exclude saved artists"
-                  />
-                </Grid2>
-                <Grid2 size={6}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        value={songSettings.exclude_saved_tracks}
-                        checked={songSettings.exclude_saved_tracks}
-                        size="small"
-                        onChange={() => {
-                          setSongSettings({
-                            ...songSettings,
-                            exclude_saved_tracks:
-                              !songSettings.exclude_saved_tracks,
-                          });
-                        }}
-                        sx={{
-                          color: `${Colors.BLACK_SPOTIFY}`, // Default (unchecked) color
-                          '&.Mui-checked': {
-                            color: `${Colors.GREEN_SPOTIFY}`, // Checked color
-                          },
-                          '&.MuiCheckbox-indeterminate': {
-                            color: `${Colors.BLACK_SPOTIFY}`, // Indeterminate color
-                          },
-                          '&:hover': {
-                            backgroundColor: `rgba(30, 215, 96, 0.1)`, // Optional hover effect
-                          },
-                          '&.Mui-disabled': {
-                            color: '#BDBDBD', // Disabled color
-                          },
-                        }}
-                      />
-                    }
-                    sx={{
-                      '& .MuiFormControlLabel-label': {
-                        fontSize: '13px',
-                      },
-                    }}
-                    label="Exclude saved tracks"
-                  />
-                </Grid2>
-              </Grid2>
-            </AccordionDetails>
-          </Accordion>
-        </FormGroup>
-      </Stack>*/}
       <Stack mx={2}>
         <Button
           variant="contained"
