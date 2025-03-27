@@ -265,10 +265,25 @@ const getRandomSongByGenre = async (
   }
 };
 
-export const obtainANewSpotifyRecomendation = async (genre: string) => {
-  const genreSongs = await searchSpotify(`genre:${genre} `, 'track');
-  console.log(genreSongs, genre, 'hola');
-  return genreSongs;
+export const obtainANewSpotifyTrackRecomendation = async (genre: string) => {
+  const genreResponse = await searchSpotify(`genre:${genre} `, 'track', 50);
+  const genreResponseTracks = genreResponse.tracks;
+  const actualGenreTracks = genreResponseTracks?.items.length ?? 0;
+
+  var cont = 0;
+
+  while (genreResponseTracks && cont < actualGenreTracks) {
+    const randomTrack = Math.floor(Math.random() * actualGenreTracks);
+    const track = genreResponseTracks.items[randomTrack];
+
+    const artisId = track.artists[0].id;
+    const isFollowed = await checkFollowedArtist({ artistIds: artisId });
+    if (!isFollowed[0]) return genreResponseTracks.items[randomTrack];
+
+    cont++;
+  }
+
+  return genreResponseTracks?.items[0];
 };
 
 export default getRandomSongByGenre;

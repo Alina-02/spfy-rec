@@ -1,8 +1,12 @@
+import { SpotifyTrack } from '../constants/spotify';
+
 interface SearchResponse {
   tracks?: {
-    items: any[];
+    total: number;
+    items: SpotifyTrack[];
   };
   albums?: {
+    total: number;
     items: any[];
   };
   artists?: {
@@ -28,13 +32,16 @@ export async function searchSpotify(
     type: type,
   });
 
-  const response = await fetch(`${apiUrl}?${params.toString()}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  const response = await fetch(
+    `${apiUrl}?${params.toString()}&limit=${limit}`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
 
   if (!response.ok) {
     throw new Error(`Error: ${response.statusText}`);

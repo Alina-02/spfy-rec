@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import getRandomSongByGenre, {
-  obtainANewSpotifyRecomendation,
+  obtainANewSpotifyTrackRecomendation,
 } from '../logic/getRandomSongByGenre';
 import { GetSongSettings, SpotifyGenre } from '../constants/spotify';
 import { Colors } from '../constants/colors';
@@ -47,7 +47,11 @@ const RequestSongForm = ({
   );
 
   const findSong = () => {
-    obtainANewSpotifyRecomendation(selectedGenre.name);
+    obtainANewSpotifyTrackRecomendation(selectedGenre.name).then(
+      (genreTrack) => {
+        setSongInfo(genreTrack);
+      }
+    );
   };
 
   return (
