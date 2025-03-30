@@ -33,7 +33,7 @@ export async function searchSpotify(
   });
 
   const response = await fetch(
-    `${apiUrl}?${params.toString()}&limit=${limit}`,
+    `${apiUrl}?${params.toString()}&limit=${limit}&offset=${offset}`,
     {
       method: 'GET',
       headers: {

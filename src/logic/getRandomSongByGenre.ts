@@ -9,6 +9,7 @@ import { formatStringId } from '../utils/formatStringIds';
 import { checkFollowedArtist } from './checkFollowedArtist';
 import { searchSpotify } from './searchForItem';
 import { checkSavedAlbum } from './checkSavedAlbum';
+import { checkSavedTrack } from './checkSavedTrack';
 
 // Function to get playlists by genre
 
@@ -267,10 +268,11 @@ const getRandomSongByGenre = async (
 };
 
 export const obtainANewSpotifyTrackRecomendation = async (genre: string) => {
-  const genreResponse = await searchSpotify(`genre:${genre} `, 'track', 50);
+  const genreResponse = await searchSpotify(`genre:${genre} `, 'track', 50, 0);
   const genreResponseTracks = genreResponse.tracks;
   const actualGenreTracks = genreResponseTracks?.items.length ?? 0;
-
+  console.log(actualGenreTracks, 'número');
+  console.log(genreResponseTracks?.total, 'limite');
   var cont = 0;
 
   while (genreResponseTracks && cont < actualGenreTracks) {
@@ -281,8 +283,10 @@ export const obtainANewSpotifyTrackRecomendation = async (genre: string) => {
     const isFollowedArtist = await checkFollowedArtist({ artistIds: artisId });
     const albumId = track.album.id;
     const isSavedAlbum = await checkSavedAlbum({ albumsIds: albumId });
+    const trackId = track?.id;
+    const isSavedTrack = await checkSavedTrack({ tracksIds: trackId });
 
-    if (!isFollowedArtist[0] && !isSavedAlbum[0])
+    if (!isFollowedArtist[0] && !isSavedAlbum[0] && !isSavedTrack[0])
       return genreResponseTracks.items[randomTrack];
 
     cont++;
