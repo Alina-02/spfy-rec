@@ -1,7 +1,12 @@
 import {
   Autocomplete,
   Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
   IconButton,
+  Radio,
+  RadioGroup,
   Stack,
   TextField,
   Tooltip,
@@ -23,7 +28,6 @@ interface Props {
   genres: SpotifyGenre[];
   setSelectedGenre: React.Dispatch<React.SetStateAction<SpotifyGenre>>;
   setRandomGenre: React.Dispatch<any>;
-  audioRef: React.MutableRefObject<HTMLAudioElement | null>;
 }
 
 const initialGetSongSettings = {
@@ -40,7 +44,6 @@ const RequestSongForm = ({
   genres,
   setSelectedGenre,
   setRandomGenre,
-  audioRef,
 }: Props) => {
   const [songSettings, setSongSettings] = useState<GetSongSettings>(
     initialGetSongSettings
@@ -106,6 +109,28 @@ const RequestSongForm = ({
             </IconButton>
           </Tooltip>
         </Stack>
+      </Stack>
+      <Stack direction="row">
+        <FormGroup dir="row">
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel
+              control={<Radio defaultChecked size="small" checked={true} />}
+              label="Song"
+            />
+            <FormControlLabel
+              control={<Radio size="small" checked={false} />}
+              label="Album"
+            />
+            <FormControlLabel
+              control={<Radio size="small" checked={false} />}
+              label="Artist"
+            />
+          </RadioGroup>
+        </FormGroup>
       </Stack>
       <Stack mx={2}>
         <Button

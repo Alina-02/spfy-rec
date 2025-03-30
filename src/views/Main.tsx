@@ -37,7 +37,6 @@ const Main = () => {
           genres={genres}
           setSelectedGenre={setSelectedGenre}
           setRandomGenre={setRandomGenre}
-          audioRef={audioRef}
         />
         <Stack overflow={'hidden'}>
           {songInfo && <CardSongInfo songInfo={songInfo} />}
