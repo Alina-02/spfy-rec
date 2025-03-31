@@ -61,7 +61,7 @@ const PopularityStats = () => {
         width="100%"
         display="flex"
         justifyContent={'center'}
-        paddingY={'15px'}
+        paddingBottom={'10px'}
         textAlign={'center'}
       >
         <Typography

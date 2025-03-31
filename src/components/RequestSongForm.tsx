@@ -18,13 +18,15 @@ import { Colors } from '../constants/colors';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PopularityStats from './PopularityStats';
+import { spotifyGenres } from '../constants/genres';
 
 interface Props {
   selectedGenre: SpotifyGenre;
   setSongInfo: React.Dispatch<any>;
   genres: SpotifyGenre[];
   setSelectedGenre: React.Dispatch<React.SetStateAction<SpotifyGenre>>;
-  setRandomGenre: React.Dispatch<any>;
+  settings: Settings;
+  setSettings: React.Dispatch<React.SetStateAction<Settings>>;
 }
 
 const RequestSongForm = ({
@@ -32,9 +34,9 @@ const RequestSongForm = ({
   setSongInfo,
   genres,
   setSelectedGenre,
-  setRandomGenre,
+  settings,
+  setSettings,
 }: Props) => {
-  const [settings, setSettings] = useState<Settings>(Settings.TRACK);
   const [showSettings, setShowSettings] = useState<boolean>(false);
 
   const find = () => {
@@ -43,6 +45,12 @@ const RequestSongForm = ({
         setSongInfo(genreTrack);
       }
     );
+  };
+
+  const setRandomGenre = () => {
+    const genres = Object.values(spotifyGenres); // Get all enum values
+    const randomIndex = Math.floor(Math.random() * genres.length); // Generate a random index
+    setSelectedGenre(genres[randomIndex]);
   };
 
   return (

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { SpotifyTrack } from '../constants/spotify';
 import { Box, Button, IconButton, Stack } from '@mui/material';
-import { Colors } from '../constants/colors';
 import { keyframes } from '@emotion/react';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import { Colors } from '../../constants/colors';
+import { SpotifyTrack } from '../../constants/spotify';
 
 interface Props {
   songInfo: SpotifyTrack;

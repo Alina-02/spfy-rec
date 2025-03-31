@@ -1,11 +1,13 @@
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import { SpotifyTrack } from '../constants/spotify';
+import { SpotifyAlbum } from '../../constants/spotify';
 
 interface Props {
-  songInfo: SpotifyTrack;
+  recommendation: SpotifyAlbum;
 }
 
-const CardSongInfo = ({ songInfo }: Props) => {
+const CardAlbumInfo = (props: Props) => {
+  const { recommendation } = props;
+
   return (
     <Card
       sx={{
@@ -20,7 +22,7 @@ const CardSongInfo = ({ songInfo }: Props) => {
         <CardMedia
           component="img"
           height="150px"
-          image={songInfo?.album.images[0]?.url}
+          image={recommendation?.images[0]?.url}
         />
         <Stack m={2}>
           <Typography
@@ -33,7 +35,7 @@ const CardSongInfo = ({ songInfo }: Props) => {
             variant="caption"
             sx={{ fontSize: '12px', fontWeight: 'bold' }}
           >
-            {songInfo?.artists[0]?.name}
+            {recommendation?.artists[0]?.name}
           </Typography>
 
           <Typography
@@ -43,20 +45,12 @@ const CardSongInfo = ({ songInfo }: Props) => {
             Track title
           </Typography>
           <Typography variant="h6" sx={{ fontSize: '18px' }}>
-            {songInfo.name}
+            {recommendation.name}
           </Typography>
-
-          <Typography
-            variant="subtitle1"
-            sx={{ fontSize: '12px', fontStyle: 'italic' }}
-          >
-            Album
-          </Typography>
-          <Typography variant="subtitle1">{songInfo.album.name}</Typography>
         </Stack>
       </CardContent>
     </Card>
   );
 };
 
-export default CardSongInfo;
+export default CardAlbumInfo;

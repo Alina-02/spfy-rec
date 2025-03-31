@@ -1,50 +1,56 @@
 import { useRef, useState } from 'react';
-import { SpotifyGenre } from '../constants/spotify';
+import { Settings, SpotifyGenre } from '../constants/spotify';
 import { Divider, Icon, Stack } from '@mui/material';
-import CardSongInfo from '../components/CardSongInfo';
 import RequestSongForm from '../components/RequestSongForm';
-import DisplayMusicDemo from '../components/DisplayMusicDemo';
 import { spotifyGenres } from '../constants/genres';
+import CardAlbumInfo from '../components/InfoCards/CardAlbumInfo';
+import CardSongInfo from '../components/InfoCards/CardSongInfo';
+import CardArtisInfo from '../components/InfoCards/CardArtistInfo';
+import DisplayAlbumDisc from '../components/Discs/DisplayAlbumDisc';
+import DisplayMusicDemo from '../components/Discs/DisplayAlbumDisc';
 
 const Main = () => {
-  //const [genres, setGenres] = useState<SpotifyGenres[]>([]);
   const genres: SpotifyGenre[] = spotifyGenres;
   const [selectedGenre, setSelectedGenre] = useState<SpotifyGenre>(
     spotifyGenres[1]
   );
 
-  const [songInfo, setSongInfo] = useState<any>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  /*useEffect(() => {
-    getGenres().then((res) => {
-      (res, 'hola');
-      setGenres(res);
-    });
-  }, []);*/
+  const [settings, setSettings] = useState<Settings>(Settings.TRACK);
+  const [recommendation, setRecommendation] = useState<any>(null);
 
-  const setRandomGenre = () => {
-    const genres = Object.values(spotifyGenres); // Get all enum values
-    const randomIndex = Math.floor(Math.random() * genres.length); // Generate a random index
-    setSelectedGenre(genres[randomIndex]);
-  };
+  console.log(recommendation, 'recomendación');
 
   return (
     <Stack direction="row" height="100%">
       <Stack width="350px" mx={2} my={1} spacing={2} overflow={'auto'}>
         <RequestSongForm
           selectedGenre={selectedGenre}
-          setSongInfo={setSongInfo}
+          setSongInfo={setRecommendation}
           genres={genres}
           setSelectedGenre={setSelectedGenre}
-          setRandomGenre={setRandomGenre}
+          settings={settings}
+          setSettings={setSettings}
         />
         <Stack overflow={'hidden'}>
-          {songInfo && <CardSongInfo songInfo={songInfo} />}
+          {recommendation && settings === Settings.TRACK && (
+            <CardSongInfo recommendation={recommendation} />
+          )}
+          {recommendation && settings === Settings.ALBUM && (
+            <CardAlbumInfo recommendation={recommendation} />
+          )}
+          {recommendation && settings === Settings.ARTIST && (
+            <CardArtisInfo recommendation={recommendation} />
+          )}
         </Stack>
       </Stack>
       <Divider orientation="vertical" />
       <Stack width="calc(100% - 350px)" overflow={'hidden'}>
-        <DisplayMusicDemo songInfo={songInfo} audioRef={audioRef} />
+        {recommendation && settings === Settings.TRACK && (
+          <DisplayMusicDemo recommendation={recommendation} />
+        )}
+        {recommendation && settings === Settings.ALBUM && (
+          <DisplayAlbumDisc recommendation={recommendation} />
+        )}
       </Stack>
 
       <Icon
