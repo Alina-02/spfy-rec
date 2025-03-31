@@ -1,7 +1,6 @@
 import {
   Autocomplete,
   Button,
-  Checkbox,
   FormControlLabel,
   FormGroup,
   IconButton,
@@ -13,10 +12,8 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
-import getRandomSongByGenre, {
-  obtainANewSpotifyTrackRecomendation,
-} from '../logic/getRandomSongByGenre';
-import { GetSongSettings, SpotifyGenre } from '../constants/spotify';
+import { obtainANewSpotifyTrackRecomendation } from '../logic/getRandomSongByGenre';
+import { Settings, SpotifyGenre } from '../constants/spotify';
 import { Colors } from '../constants/colors';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -30,14 +27,6 @@ interface Props {
   setRandomGenre: React.Dispatch<any>;
 }
 
-const initialGetSongSettings = {
-  exclude_saved_albums: true,
-  exclude_saved_playlist: true,
-  exclude_saved_artist: true,
-  exclude_saved_tracks: true,
-  restrict_genre: true,
-};
-
 const RequestSongForm = ({
   selectedGenre,
   setSongInfo,
@@ -45,12 +34,11 @@ const RequestSongForm = ({
   setSelectedGenre,
   setRandomGenre,
 }: Props) => {
-  const [songSettings, setSongSettings] = useState<GetSongSettings>(
-    initialGetSongSettings
-  );
+  const [settings, setSettings] = useState<Settings>(Settings.TRACK);
+  const [showSettings, setShowSettings] = useState<boolean>(false);
 
-  const findSong = () => {
-    obtainANewSpotifyTrackRecomendation(selectedGenre.name).then(
+  const find = () => {
+    obtainANewSpotifyTrackRecomendation(selectedGenre.name, settings).then(
       (genreTrack) => {
         setSongInfo(genreTrack);
       }
@@ -60,7 +48,10 @@ const RequestSongForm = ({
   return (
     <Stack spacing={2} px={2}>
       <Typography
-        sx={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '55px' }}
+        sx={{
+          fontFamily: "'IBM Plex Mono', monospace",
+          fontSize: '55px',
+        }}
       >
         randON
       </Typography>
@@ -104,34 +95,59 @@ const RequestSongForm = ({
             </IconButton>
           </Tooltip>
           <Tooltip title={'More settings'}>
-            <IconButton color="secondary" onClick={setRandomGenre}>
+            <IconButton
+              color="secondary"
+              onClick={() => {
+                setShowSettings(!showSettings);
+              }}
+            >
               <SettingsIcon />
             </IconButton>
           </Tooltip>
         </Stack>
       </Stack>
-      <Stack direction="row">
-        <FormGroup dir="row">
-          <RadioGroup
-            row
-            aria-labelledby="demo-row-radio-buttons-group-label"
-            name="row-radio-buttons-group"
-          >
-            <FormControlLabel
-              control={<Radio defaultChecked size="small" checked={true} />}
-              label="Song"
-            />
-            <FormControlLabel
-              control={<Radio size="small" checked={false} />}
-              label="Album"
-            />
-            <FormControlLabel
-              control={<Radio size="small" checked={false} />}
-              label="Artist"
-            />
-          </RadioGroup>
-        </FormGroup>
-      </Stack>
+      {showSettings && (
+        <Stack direction="row" justifyContent="center">
+          <FormGroup>
+            <RadioGroup
+              row
+              aria-labelledby="demo-row-radio-buttons-group-label"
+              name="row-radio-buttons-group"
+            >
+              <FormControlLabel
+                control={
+                  <Radio
+                    size="small"
+                    checked={settings === Settings.TRACK}
+                    onChange={() => setSettings(Settings.TRACK)}
+                  />
+                }
+                label="Song"
+              />
+              <FormControlLabel
+                control={
+                  <Radio
+                    size="small"
+                    checked={settings === Settings.ALBUM}
+                    onChange={() => setSettings(Settings.ALBUM)}
+                  />
+                }
+                label="Album"
+              />
+              <FormControlLabel
+                control={
+                  <Radio
+                    size="small"
+                    checked={settings === Settings.ARTIST}
+                    onChange={() => setSettings(Settings.ARTIST)}
+                  />
+                }
+                label="Artist"
+              />
+            </RadioGroup>
+          </FormGroup>
+        </Stack>
+      )}
       <Stack mx={2}>
         <Button
           variant="contained"
@@ -141,7 +157,7 @@ const RequestSongForm = ({
             borderRadius: '10px',
             fontSize: '15px',
           }}
-          onClick={findSong}
+          onClick={find}
           fullWidth
         >
           Find

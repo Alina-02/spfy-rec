@@ -1,16 +1,21 @@
-import { SpotifyTrack } from '../constants/spotify';
+import {
+  SpotifyAlbum,
+  SpotifyArtist,
+  SpotifyTrack,
+} from '../constants/spotify';
 
-interface SearchResponse {
+export interface SearchResponse {
   tracks?: {
     total: number;
     items: SpotifyTrack[];
   };
   albums?: {
     total: number;
-    items: any[];
+    items: SpotifyAlbum[];
   };
   artists?: {
-    items: any[];
+    total: number;
+    items: SpotifyArtist[];
   };
   playlists?: {
     items: any[];

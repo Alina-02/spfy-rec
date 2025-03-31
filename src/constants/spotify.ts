@@ -92,12 +92,10 @@ export interface SpotifyArtist {
   uri: string;
 }
 
-export interface GetSongSettings {
-  exclude_saved_albums: boolean;
-  exclude_saved_playlist: boolean;
-  exclude_saved_artist: boolean;
-  exclude_saved_tracks: boolean;
-  restrict_genre: boolean;
+export enum Settings {
+  TRACK = 'track',
+  ALBUM = 'album',
+  ARTIST = 'artist',
 }
 
 export interface SpotifyImage {

@@ -30,7 +30,7 @@ const Main = () => {
 
   return (
     <Stack direction="row" height="100%">
-      <Stack width="350px" m={2} spacing={2} overflow={'auto'}>
+      <Stack width="350px" mx={2} my={1} spacing={2} overflow={'auto'}>
         <RequestSongForm
           selectedGenre={selectedGenre}
           setSongInfo={setSongInfo}
