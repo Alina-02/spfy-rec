@@ -6,8 +6,7 @@ import { Colors } from '../../constants/colors';
 import { SpotifyTrack } from '../../constants/spotify';
 
 interface Props {
-  songInfo: SpotifyTrack;
-  audioRef: React.MutableRefObject<HTMLAudioElement | null>;
+  recommendation: SpotifyTrack;
 }
 
 const spin = keyframes`
@@ -19,22 +18,20 @@ const spin = keyframes`
   }
 `;
 
-const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
+const DisplayMusicDemo = ({ recommendation }: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const showPreview = () => {
-    window.open(songInfo.external_urls.spotify, '_blank');
+    window.open(recommendation.external_urls.spotify, '_blank');
   };
 
   const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        //audioRef.current.pause();
-      } else {
-        //audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
+    if (isPlaying) {
+      //audioRef.current.pause();
+    } else {
+      //audioRef.current.play();
     }
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -45,16 +42,14 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
         alignItems={'center'}
       >
         <Stack height="100%">
-          {songInfo?.album?.images?.length > 0 && (
+          {recommendation?.album?.images?.length > 0 && (
             <Box
               minWidth="250px"
-              //width="450px"
               maxWidth="550px"
               minHeight="250px"
-              //height="450px"
               maxHeight="550px"
               sx={{
-                position: 'relative', // Make the wrapper relative to position the icon inside
+                position: 'relative',
                 margin: 10,
                 marginBottom: 5,
               }}
@@ -67,7 +62,7 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
                   animation: `${spin} 10s linear infinite`,
                   animationPlayState: !isPlaying ? 'paused' : 'running', // Control animation state
                 }}
-                src={songInfo?.album.images[0]?.url}
+                src={recommendation?.album.images[0]?.url}
                 borderRadius={'100%'}
               />
               <Box
@@ -98,13 +93,12 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
               </Box>
 
               <audio
-                ref={audioRef}
                 //src={songInfo?.preview}
                 onEnded={() => setIsPlaying(false)}
               />
             </Box>
           )}
-          {!songInfo?.album?.images && (
+          {!recommendation?.album?.images && (
             <Box
               margin={10}
               minWidth="250px"
@@ -121,7 +115,7 @@ const DisplayMusicDemo = ({ songInfo, audioRef }: Props) => {
         </Stack>
         <Stack height="20%">
           <Button
-            disabled={!songInfo}
+            disabled={!recommendation}
             sx={{
               borderColor: `${Colors.GREEN_SPOTIFY}`,
               color: `${Colors.GREEN_SPOTIFY}`,

@@ -22,7 +22,7 @@ import { spotifyGenres } from '../constants/genres';
 
 interface Props {
   selectedGenre: SpotifyGenre;
-  setSongInfo: React.Dispatch<any>;
+  setRecommendation: React.Dispatch<any>;
   genres: SpotifyGenre[];
   setSelectedGenre: React.Dispatch<React.SetStateAction<SpotifyGenre>>;
   settings: Settings;
@@ -31,7 +31,7 @@ interface Props {
 
 const RequestSongForm = ({
   selectedGenre,
-  setSongInfo,
+  setRecommendation,
   genres,
   setSelectedGenre,
   settings,
@@ -42,7 +42,7 @@ const RequestSongForm = ({
   const find = () => {
     obtainANewSpotifyTrackRecomendation(selectedGenre.name, settings).then(
       (genreTrack) => {
-        setSongInfo(genreTrack);
+        setRecommendation(genreTrack);
       }
     );
   };
@@ -127,7 +127,10 @@ const RequestSongForm = ({
                   <Radio
                     size="small"
                     checked={settings === Settings.TRACK}
-                    onChange={() => setSettings(Settings.TRACK)}
+                    onChange={() => {
+                      setSettings(Settings.TRACK);
+                      setRecommendation(null);
+                    }}
                   />
                 }
                 label="Song"
@@ -137,7 +140,10 @@ const RequestSongForm = ({
                   <Radio
                     size="small"
                     checked={settings === Settings.ALBUM}
-                    onChange={() => setSettings(Settings.ALBUM)}
+                    onChange={() => {
+                      setSettings(Settings.ALBUM);
+                      setRecommendation(null);
+                    }}
                   />
                 }
                 label="Album"
@@ -147,7 +153,10 @@ const RequestSongForm = ({
                   <Radio
                     size="small"
                     checked={settings === Settings.ARTIST}
-                    onChange={() => setSettings(Settings.ARTIST)}
+                    onChange={() => {
+                      setSettings(Settings.ARTIST);
+                      setRecommendation(null);
+                    }}
                   />
                 }
                 label="Artist"

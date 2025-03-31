@@ -6,8 +6,9 @@ import { spotifyGenres } from '../constants/genres';
 import CardAlbumInfo from '../components/InfoCards/CardAlbumInfo';
 import CardSongInfo from '../components/InfoCards/CardSongInfo';
 import CardArtisInfo from '../components/InfoCards/CardArtistInfo';
+import DisplayMusicDemo from '../components/Discs/DisplayMusicDemo';
 import DisplayAlbumDisc from '../components/Discs/DisplayAlbumDisc';
-import DisplayMusicDemo from '../components/Discs/DisplayAlbumDisc';
+import { Colors } from '../constants/colors';
 
 const Main = () => {
   const genres: SpotifyGenre[] = spotifyGenres;
@@ -25,7 +26,7 @@ const Main = () => {
       <Stack width="350px" mx={2} my={1} spacing={2} overflow={'auto'}>
         <RequestSongForm
           selectedGenre={selectedGenre}
-          setSongInfo={setRecommendation}
+          setRecommendation={setRecommendation}
           genres={genres}
           setSelectedGenre={setSelectedGenre}
           settings={settings}
@@ -44,7 +45,11 @@ const Main = () => {
         </Stack>
       </Stack>
       <Divider orientation="vertical" />
-      <Stack width="calc(100% - 350px)" overflow={'hidden'}>
+      <Stack
+        width="calc(100% - 350px)"
+        overflow={'hidden'}
+        sx={{ backgroundColor: `${Colors.BLACK_SPOTIFY}` }}
+      >
         {recommendation && settings === Settings.TRACK && (
           <DisplayMusicDemo recommendation={recommendation} />
         )}

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Button, Stack } from '@mui/material';
-import { keyframes } from '@emotion/react';
+import { Box, Button, IconButton, Stack } from '@mui/material';
 import { SpotifyAlbum } from '../../constants/spotify';
 import { Colors } from '../../constants/colors';
 
@@ -8,7 +7,7 @@ interface Props {
   recommendation: SpotifyAlbum;
 }
 
-const DisplayMusicDemo = (props: Props) => {
+const DisplayAlbumDisc = (props: Props) => {
   const { recommendation } = props;
 
   const showPreview = () => {
@@ -35,7 +34,6 @@ const DisplayMusicDemo = (props: Props) => {
                 marginBottom: 5,
               }}
             >
-              {' '}
               <Box
                 width="100%"
                 height="100%"
@@ -52,9 +50,6 @@ const DisplayMusicDemo = (props: Props) => {
               width="450px"
               minHeight="250px"
               height="450px"
-              sx={{
-                backgroundColor: 'white',
-              }}
               borderRadius={'100%'}
             />
           )}
@@ -79,4 +74,4 @@ const DisplayMusicDemo = (props: Props) => {
   );
 };
 
-export default DisplayMusicDemo;
+export default DisplayAlbumDisc;
