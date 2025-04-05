@@ -31,12 +31,8 @@ const LoginScreen: React.FC = () => {
           >
             <Button
               onClick={getSpotifyAuthUrl}
-              //variant="contained"
               color="secondary"
               sx={{
-                //color: `${Colors.BLACK_SPOTIFY}`,
-                // borderColor: `${Colors.BLACK_SPOTIFY}`,
-                //backgroundColor: `rgba(30, 215, 96, 0.3)`,
                 fontSize: '30px',
                 width: '200px',
                 height: '60px',

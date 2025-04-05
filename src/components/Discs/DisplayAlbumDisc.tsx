@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, IconButton, Stack } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { SpotifyAlbum } from '../../constants/spotify';
 import { Colors } from '../../constants/colors';
 
@@ -50,8 +50,19 @@ const DisplayAlbumDisc = (props: Props) => {
               width="450px"
               minHeight="250px"
               height="450px"
-              borderRadius={'100%'}
-            />
+              borderRadius="100%"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              textAlign="center"
+              sx={{ backgroundColor: 'white' }}
+            >
+              {recommendation === undefined && (
+                <Typography variant="h6">
+                  Try looking for something that someone other than you knows.
+                </Typography>
+              )}
+            </Box>
           )}
         </Stack>
         <Stack height="20%">

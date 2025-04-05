@@ -53,7 +53,7 @@ const Main = () => {
         {recommendation && settings === Settings.TRACK && (
           <DisplayMusicDemo recommendation={recommendation} />
         )}
-        {recommendation && settings === Settings.ALBUM && (
+        {settings === Settings.ALBUM && (
           <DisplayAlbumDisc recommendation={recommendation} />
         )}
       </Stack>

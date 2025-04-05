@@ -30,7 +30,6 @@ const Callback: React.FC = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            // Authorization: `Basic ${btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)}`,
           },
           body: new URLSearchParams({
             client_id: CLIENT_ID,

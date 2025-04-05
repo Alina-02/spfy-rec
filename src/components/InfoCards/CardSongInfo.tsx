@@ -21,7 +21,7 @@ const CardSongInfo = (props: Props) => {
       <CardContent sx={{ margin: 0, padding: 0 }}>
         <CardMedia
           component="img"
-          height="150px"
+          sx={{ maxHeight: '150px' }}
           image={recommendation?.album.images[0]?.url}
         />
         <Stack m={2}>

@@ -35,13 +35,6 @@ const base64encode = (input: any) => {
     .replace(/=+$/, '');
 };
 
-async function pkce_challenge_from_verifier(v: string): Promise<string> {
-  // Generate a PKCE code challenge from a code verifier
-  const hashed = await sha256(v);
-  const base64encoded = base64encode(hashed);
-  return base64encoded;
-}
-
 // Generate Spotify Authorization URL
 export const getSpotifyAuthUrl = async () => {
   const codeVerifier = await generateRandomString(64);
