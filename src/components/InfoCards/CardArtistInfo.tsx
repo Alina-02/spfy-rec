@@ -1,5 +1,14 @@
-import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import { SpotifyAlbum } from '../../constants/spotify';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  LinearProgress,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { SpotifyAlbum, SpotifyArtist } from '../../constants/spotify';
+import { useEffect, useState } from 'react';
+import { getArtist } from '../../logic/getArtist';
 
 interface Props {
   recommendation: SpotifyAlbum;
@@ -8,6 +17,21 @@ interface Props {
 const CardArtisInfo = (props: Props) => {
   const { recommendation } = props;
   console.log(recommendation);
+
+  const [artistInfo, setArtistInfo] = useState<SpotifyArtist>();
+
+  useEffect(() => {
+    getArtist({ artistId: recommendation?.id }).then((artist) => {
+      setArtistInfo(artist);
+      console.log(artistInfo);
+    });
+  }, [recommendation]);
+
+  const getFollowersPercentage = (followers: number) => {
+    const percentage = (followers / 140000000) * 100;
+    return percentage;
+  };
+
   return (
     <Card
       sx={{
@@ -37,6 +61,52 @@ const CardArtisInfo = (props: Props) => {
           >
             {recommendation?.name}
           </Typography>
+        </Stack>
+        <Stack m={2}>
+          <Stack direction="row" justifyContent="space-between">
+            <Typography
+              variant="subtitle1"
+              sx={{ fontSize: '12px', fontStyle: 'italic' }}
+            >
+              Popularity
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontSize: '12px', fontStyle: 'italic' }}
+            >
+              {artistInfo?.popularity}%
+            </Typography>
+          </Stack>
+          <LinearProgress
+            variant="determinate"
+            value={artistInfo?.popularity}
+            sx={{ height: 10, borderRadius: 10 }}
+          />
+        </Stack>
+        <Stack m={2}>
+          <Stack direction="row" justifyContent="space-between">
+            <Typography
+              variant="subtitle1"
+              sx={{ fontSize: '12px', fontStyle: 'italic' }}
+            >
+              Followers
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{ fontSize: '12px', fontStyle: 'italic' }}
+            >
+              {artistInfo?.followers?.total}
+            </Typography>
+          </Stack>
+          <LinearProgress
+            variant="determinate"
+            value={
+              artistInfo?.followers?.total
+                ? getFollowersPercentage(artistInfo?.followers?.total)
+                : 0
+            }
+            sx={{ height: 10, borderRadius: 10 }}
+          />
         </Stack>
       </CardContent>
     </Card>

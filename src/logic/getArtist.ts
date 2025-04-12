@@ -5,7 +5,7 @@ interface Props {
   artistId: string;
 }
 
-export const getNewReleases = async (props: Props) => {
+export const getArtist = async (props: Props) => {
   const { artistId } = props;
   const token = localStorage.getItem('spotify_access_token');
 
