@@ -35,17 +35,7 @@ const CardArtisInfo = (props: Props) => {
             variant="caption"
             sx={{ fontSize: '12px', fontWeight: 'bold' }}
           >
-            {recommendation?.artists[0]?.name}
-          </Typography>
-
-          <Typography
-            variant="subtitle1"
-            sx={{ fontSize: '12px', fontStyle: 'italic' }}
-          >
-            Track title
-          </Typography>
-          <Typography variant="h6" sx={{ fontSize: '18px' }}>
-            {recommendation.name}
+            {recommendation?.name}
           </Typography>
         </Stack>
       </CardContent>

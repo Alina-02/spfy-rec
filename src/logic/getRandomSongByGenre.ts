@@ -59,9 +59,9 @@ const getRandomAlbum = async (genreResponse: SearchResponse) => {
 };
 
 const getRandomArtist = async (genreResponse: SearchResponse) => {
-  const genreResponseArtists = genreResponse.albums;
+  const genreResponseArtists = genreResponse.artists;
   const actualGenreArtists = genreResponseArtists?.items.length ?? 0;
-
+  console.log(genreResponseArtists, 'hola');
   var cont = 0;
 
   while (genreResponseArtists && cont < actualGenreArtists) {

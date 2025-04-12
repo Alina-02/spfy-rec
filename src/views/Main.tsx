@@ -9,6 +9,7 @@ import CardArtisInfo from '../components/InfoCards/CardArtistInfo';
 import DisplayMusicDemo from '../components/Discs/DisplayMusicDemo';
 import DisplayAlbumDisc from '../components/Discs/DisplayAlbumDisc';
 import { Colors } from '../constants/colors';
+import DisplayArtistDisc from '../components/Discs/DisplayArtistDisc';
 
 const Main = () => {
   const genres: SpotifyGenre[] = spotifyGenres;
@@ -55,6 +56,9 @@ const Main = () => {
         )}
         {settings === Settings.ALBUM && (
           <DisplayAlbumDisc recommendation={recommendation} />
+        )}
+        {settings === Settings.ARTIST && (
+          <DisplayArtistDisc recommendation={recommendation} />
         )}
       </Stack>
 
