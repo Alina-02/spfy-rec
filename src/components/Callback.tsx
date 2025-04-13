@@ -6,7 +6,11 @@ import { Colors } from '../constants/colors';
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID as string;
 
-const REDIRECT_URI = `http://localhost:5173/callback`;
+const url_protocol = window.location.protocol;
+const base_url = window.location.hostname;
+const port = window.location.port;
+
+const REDIRECT_URI = `${url_protocol}//${base_url}:${port}/callback`;
 
 const Callback: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -42,7 +46,7 @@ const Callback: React.FC = () => {
         const data = await response.json();
         if (data.access_token) {
           localStorage.setItem('spotify_access_token', data.access_token);
-          navigate('/main'); // Redirect to profile page after successful login
+          navigate('/main');
         } else {
           console.error('Failed to get access token', data);
         }
