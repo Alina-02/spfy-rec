@@ -60,6 +60,7 @@ const Main = () => {
       <Divider orientation="vertical" />
       <Stack
         width="calc(100% - 350px)"
+        height="100%"
         overflow={'hidden'}
         sx={{ backgroundColor: `${Colors.BLACK_SPOTIFY}` }}
       >
