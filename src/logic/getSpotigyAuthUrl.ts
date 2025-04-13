@@ -1,4 +1,9 @@
-const REDIRECT_URI = `http://localhost:5173/callback`;
+const url_protocol = window.location.protocol;
+const base_url = window.location.hostname;
+const port = window.location.port;
+
+const REDIRECT_URI = `${url_protocol}//${base_url}:${port}/callback`;
+
 export const SCOPES = [
   'user-read-private',
   'user-library-read',
