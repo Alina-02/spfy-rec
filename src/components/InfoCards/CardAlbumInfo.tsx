@@ -14,7 +14,7 @@ const CardAlbumInfo = (props: Props) => {
         marginY: 1,
         marginX: 2,
         maxWidth: '350px',
-        height: '440px',
+        height: '400px',
         borderRadius: '25px',
       }}
     >

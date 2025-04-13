@@ -20,11 +20,23 @@ const Main = () => {
   const [settings, setSettings] = useState<Settings>(Settings.TRACK);
   const [recommendation, setRecommendation] = useState<any>(null);
 
-  console.log(recommendation, 'recomendación');
-
   return (
     <Stack direction="row" height="100%">
-      <Stack width="350px" mx={2} my={1} spacing={2} overflow={'auto'}>
+      <Stack
+        width="350px"
+        ml={2}
+        mr={1}
+        my={1}
+        spacing={2}
+        sx={{
+          scrollbarColor: `${Colors.GREEN_SPOTIFY} white`,
+          scrollbarGutter: 'stable',
+          overflow: 'hidden',
+          '&:hover': {
+            overflowY: 'scroll',
+          },
+        }}
+      >
         <RequestSongForm
           selectedGenre={selectedGenre}
           setRecommendation={setRecommendation}
@@ -33,7 +45,7 @@ const Main = () => {
           settings={settings}
           setSettings={setSettings}
         />
-        <Stack overflow={'hidden'}>
+        <Stack>
           {recommendation && settings === Settings.TRACK && (
             <CardSongInfo recommendation={recommendation} />
           )}
