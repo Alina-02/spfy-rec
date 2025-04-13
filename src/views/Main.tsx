@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Settings, SpotifyGenre } from '../constants/spotify';
 import { Divider, Icon, Stack } from '@mui/material';
 import RequestSongForm from '../components/RequestSongForm';

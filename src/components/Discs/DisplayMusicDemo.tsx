@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, IconButton, Stack } from '@mui/material';
 import { keyframes } from '@emotion/react';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
