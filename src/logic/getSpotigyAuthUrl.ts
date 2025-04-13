@@ -1,6 +1,6 @@
 const url_protocol = window.location.protocol;
 const base_url = window.location.hostname;
-const port = window.location.port;
+//const port = window.location.port;
 
 const REDIRECT_URI = `${url_protocol}//${base_url}/callback`;
 
