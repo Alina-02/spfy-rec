@@ -42,7 +42,7 @@ const CardAlbumInfo = (props: Props) => {
             variant="subtitle1"
             sx={{ fontSize: '12px', fontStyle: 'italic' }}
           >
-            Track title
+            Album title
           </Typography>
           <Typography variant="h6" sx={{ fontSize: '18px' }}>
             {recommendation.name}

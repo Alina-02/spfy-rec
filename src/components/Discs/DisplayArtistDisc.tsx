@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Icon, Stack, Typography } from '@mui/material';
 import { SpotifyAlbum } from '../../constants/spotify';
 import { Colors } from '../../constants/colors';
+import { InfoOutlined } from '@mui/icons-material';
 
 interface Props {
   recommendation: SpotifyAlbum;
@@ -58,9 +59,24 @@ const DisplayArtistDisc = (props: Props) => {
               sx={{ backgroundColor: 'white' }}
             >
               {recommendation === undefined && (
-                <Typography variant="h6">
-                  Try looking for something that someone other than you knows.
-                </Typography>
+                <Stack>
+                  <Typography variant="h6">
+                    Try looking for something that someone other than you knows.
+                  </Typography>
+                  <Stack
+                    direction="row"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={0.5}
+                  >
+                    <InfoOutlined sx={{ fontSize: 17 }} />
+                    <Typography variant="caption" fontStyle="italic">
+                      It's harder to find artists from specific genres, try to
+                      generalize.
+                    </Typography>
+                  </Stack>
+                </Stack>
               )}
             </Box>
           )}

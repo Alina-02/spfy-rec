@@ -38,18 +38,21 @@ const RequestSongForm = ({
   setSettings,
 }: Props) => {
   const [showSettings, setShowSettings] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const find = () => {
+    setLoading(true);
     obtainANewSpotifyTrackRecomendation(selectedGenre.name, settings).then(
       (genreTrack) => {
         setRecommendation(genreTrack);
+        setLoading(false);
       }
     );
   };
 
   const setRandomGenre = () => {
-    const genres = Object.values(spotifyGenres); // Get all enum values
-    const randomIndex = Math.floor(Math.random() * genres.length); // Generate a random index
+    const genres = Object.values(spotifyGenres);
+    const randomIndex = Math.floor(Math.random() * genres.length);
     setSelectedGenre(genres[randomIndex]);
   };
 
@@ -176,6 +179,7 @@ const RequestSongForm = ({
           }}
           onClick={find}
           fullWidth
+          loading={loading}
         >
           Find
         </Button>
