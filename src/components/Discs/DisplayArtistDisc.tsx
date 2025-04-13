@@ -1,5 +1,4 @@
-import React from 'react';
-import { Box, Button, Icon, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { SpotifyAlbum } from '../../constants/spotify';
 import { Colors } from '../../constants/colors';
 import { InfoOutlined } from '@mui/icons-material';
