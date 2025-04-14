@@ -40,7 +40,6 @@ const base64encode = (input: any) => {
     .replace(/=+$/, '');
 };
 
-// Generate Spotify Authorization URL
 export const getSpotifyAuthUrl = async () => {
   const codeVerifier = await generateRandomString(64);
   const hashed = await sha256(codeVerifier);

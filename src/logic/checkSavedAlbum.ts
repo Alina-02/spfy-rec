@@ -19,7 +19,6 @@ export const checkSavedAlbum = async (props: Props) => {
 
       return response.data;
     } catch (error: any) {
-      // Handle error and print the message or response data
       console.error(
         'Error fetching saved albums:',
         error.response ? error.response.data : error.message

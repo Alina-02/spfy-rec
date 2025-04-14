@@ -21,7 +21,6 @@ const theme = createTheme({
   },
 });
 
-//deploy pls
 function App() {
   return (
     <ThemeProvider theme={theme}>

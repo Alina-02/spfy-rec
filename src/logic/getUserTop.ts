@@ -47,11 +47,8 @@ export const getUserTop = async (props: Props) => {
         },
       });
 
-      // Log the list of genres
-
       return response.data;
     } catch (error: any) {
-      // Handle error and print the message or response data
       console.error(
         'Error fetching user top songs:',
         error.response ? error.response.data : error.message

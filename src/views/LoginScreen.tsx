@@ -1,6 +1,6 @@
 // LoginButton.tsx
 import React from 'react';
-import { getSpotifyAuthUrl } from '../logic/getSpotigyAuthUrl';
+import { getSpotifyAuthUrl } from '../logic/getSpotifyAuthUrl';
 import { Button, Icon, Slide, Stack } from '@mui/material';
 import { Colors } from '../constants/colors';
 
