@@ -17,12 +17,14 @@
     "@mui/material": "^6.4.11",
     "@rollup/plugin-replace": "^6.0.1",
     "@types/react-router-dom": "^5.3.3",
+    "@vercel/react-router": "^1.1.0",
     "axios": "^1.8.4",
     "cross-spawn": "^7.0.6",
     "qs": "^6.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.27.0",
+    "react-router": "^7.5.0",
+    "react-router-dom": "^7.5.0",
     "vite-plugin-env-compatible": "^2.0.1"
   },
   "devDependencies": {
