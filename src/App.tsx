@@ -38,9 +38,9 @@ function App() {
         }}
       />
       <Routes>
-        <Route path="/" element={<LoginScreen />} />
         <Route path="/callback" element={<Callback />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/" element={<LoginScreen />} />
       </Routes>
     </ThemeProvider>
   );
