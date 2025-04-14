@@ -84,7 +84,7 @@ const Main = () => {
           right: 10,
         }}
       >
-        <img src="/public/spotify_logo/Primary_Logo_Green_CMYK.svg" />
+        <img src="/spotify_logo/Primary_Logo_Green_CMYK.svg" />
       </Icon>
     </Stack>
   );
