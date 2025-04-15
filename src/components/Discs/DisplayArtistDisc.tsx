@@ -17,20 +17,22 @@ const DisplayArtistDisc = (props: Props) => {
   return (
     <Stack height="100%" sx={{ backgroundColor: `${Colors.BLACK_SPOTIFY}` }}>
       <Stack
-        height="85%"
+        height={{ xs: 'auto', md: '85%' }}
         justifyContent={'space-between'}
         alignItems={'center'}
+        direction={{ xs: 'column-reverse', md: 'column' }}
+        marginTop={{ xs: 3, md: 0 }}
       >
         <Stack height="100%">
           {recommendation?.images?.length > 0 && (
             <Box
-              minWidth="250px"
-              maxWidth="550px"
+              minWidth={{ xs: '75px', md: '250px' }}
+              maxWidth={{ xs: '250px', md: '550px' }}
               minHeight="250px"
               maxHeight="550px"
+              margin={{ xs: 3, md: 10 }}
               sx={{
                 position: 'relative',
-                margin: 10,
                 marginBottom: 5,
               }}
             >
@@ -45,11 +47,10 @@ const DisplayArtistDisc = (props: Props) => {
           )}
           {!recommendation?.images && (
             <Box
-              margin={10}
-              minWidth="250px"
-              width="450px"
-              minHeight="250px"
-              height="450px"
+              minWidth={{ xs: '75px', md: '250px' }}
+              width={{ xs: '250px', md: '450px' }}
+              minHeight={{ xs: '250px', md: '450px' }}
+              margin={{ xs: 3, md: 10 }}
               borderRadius="100%"
               display="flex"
               justifyContent="center"
@@ -80,7 +81,7 @@ const DisplayArtistDisc = (props: Props) => {
             </Box>
           )}
         </Stack>
-        <Stack height="20%">
+        <Stack height={{ xs: 'auto', md: '20%' }}>
           <Button
             disabled={!recommendation}
             sx={{

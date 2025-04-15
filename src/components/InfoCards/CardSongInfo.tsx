@@ -13,6 +13,7 @@ const CardSongInfo = (props: Props) => {
       sx={{
         marginY: 1,
         marginX: 2,
+        width: '300px',
         maxWidth: '350px',
         height: '400px',
         borderRadius: '25px',

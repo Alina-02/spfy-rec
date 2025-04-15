@@ -21,9 +21,12 @@ const Main = () => {
   const [recommendation, setRecommendation] = useState<any>(null);
 
   return (
-    <Stack direction="row" height="100%">
+    <Stack
+      direction={{ xs: 'column-reverse', md: 'row' }}
+      height={{ xs: 'auto', md: '100%' }}
+    >
       <Stack
-        width="350px"
+        width={{ xs: '100%', md: '350px' }}
         ml={2}
         mr={1}
         my={1}
@@ -45,7 +48,11 @@ const Main = () => {
           settings={settings}
           setSettings={setSettings}
         />
-        <Stack>
+        <Stack
+          display="flex"
+          alignItems="center"
+          width={{ xs: '100%', md: '330px' }}
+        >
           {recommendation && settings === Settings.TRACK && (
             <CardSongInfo recommendation={recommendation} />
           )}
@@ -59,8 +66,8 @@ const Main = () => {
       </Stack>
       <Divider orientation="vertical" />
       <Stack
-        width="calc(100% - 350px)"
-        height="100%"
+        width={{ xs: '100%', md: 'calc(100% - 350px)' }}
+        height={{ xs: '200px', md: '100%' }}
         overflow={'hidden'}
         sx={{ backgroundColor: `${Colors.BLACK_SPOTIFY}` }}
       >

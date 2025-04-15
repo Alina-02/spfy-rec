@@ -37,20 +37,22 @@ const DisplayMusicDemo = ({ recommendation }: Props) => {
   return (
     <Stack height="100%" sx={{ backgroundColor: `${Colors.BLACK_SPOTIFY}` }}>
       <Stack
-        height="85%"
+        height={{ xs: 'auto', md: '85%' }}
         justifyContent={'space-between'}
         alignItems={'center'}
+        direction={{ xs: 'column-reverse', md: 'column' }}
+        marginTop={{ xs: 3, md: 0 }}
       >
         <Stack height="100%">
           {recommendation?.album?.images?.length > 0 && (
             <Box
-              minWidth="250px"
-              maxWidth="550px"
+              minWidth={{ xs: '75px', md: '250px' }}
+              maxWidth={{ xs: '250px', md: '550px' }}
               minHeight="250px"
               maxHeight="550px"
+              margin={{ xs: 3, md: 10 }}
               sx={{
                 position: 'relative',
-                margin: 10,
                 marginBottom: 5,
               }}
             >
@@ -60,7 +62,7 @@ const DisplayMusicDemo = ({ recommendation }: Props) => {
                 component="img"
                 sx={{
                   animation: `${spin} 10s linear infinite`,
-                  animationPlayState: !isPlaying ? 'paused' : 'running', // Control animation state
+                  animationPlayState: !isPlaying ? 'paused' : 'running',
                 }}
                 src={recommendation?.album.images[0]?.url}
                 borderRadius={'100%'}
@@ -70,11 +72,11 @@ const DisplayMusicDemo = ({ recommendation }: Props) => {
                 width="140px"
                 height="140px"
                 sx={{
-                  position: 'absolute', // Position icon over the image
+                  position: 'absolute',
                   top: '50%',
                   left: '50%',
-                  transform: 'translate(-50%, -50%)', // Center the icon
-                  fontSize: '100px', // Adjust size as needed
+                  transform: 'translate(-50%, -50%)',
+                  fontSize: '100px',
                   backgroundColor: `${Colors.BLACK_SPOTIFY}`,
                 }}
               >
@@ -82,11 +84,11 @@ const DisplayMusicDemo = ({ recommendation }: Props) => {
                   onClick={togglePlay}
                   component={PlayCircleIcon}
                   sx={{
-                    position: 'absolute', // Position icon over the image
+                    position: 'absolute',
                     top: '50%',
                     left: '50%',
-                    transform: 'translate(-50%, -50%)', // Center the icon
-                    fontSize: '80px', // Adjust size as needed
+                    transform: 'translate(-50%, -50%)',
+                    fontSize: '80px',
                     color: 'white',
                   }}
                 />
@@ -100,20 +102,19 @@ const DisplayMusicDemo = ({ recommendation }: Props) => {
           )}
           {!recommendation?.album?.images && (
             <Box
-              margin={10}
-              minWidth="250px"
-              width="450px"
-              minHeight="250px"
-              height="450px"
+              minWidth={{ xs: '75px', md: '250px' }}
+              maxWidth={{ xs: '250px', md: '550px' }}
+              minHeight={{ xs: '250px', md: '450px' }}
+              margin={{ xs: 3, md: 10 }}
               sx={{
                 backgroundColor: 'white',
-                animation: `${spin} 3s linear infinite`, // Apply the animation
+                animation: `${spin} 3s linear infinite`,
               }}
               borderRadius={'100%'}
             />
           )}
         </Stack>
-        <Stack height="20%">
+        <Stack height={{ xs: 'auto', md: '20%' }}>
           <Button
             disabled={!recommendation}
             sx={{
